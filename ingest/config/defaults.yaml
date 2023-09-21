@@ -1,0 +1,61 @@
+# This configuration file should contain all required configuration parameters
+# for the ingest workflow to run to completion.
+#
+# Define optional config parameters with their default values here so that users
+# do not have to dig through the workflows to figure out the default values
+
+# Required to fetch from NCBI Datasets
+ncbi_taxon_id: "11041"
+
+# Optional fields to add to the NCBI Datasets output
+ncbi_dataset_fields: []
+# Config parameters related to the curate pipeline
+curate:
+  geolocation_rules_url: "https://raw.githubusercontent.com/nextstrain/ncov-ingest/master/source-data/gisaid_geoLocationRules.tsv"
+  local_geolocation_rules: "config/geolocation_rules.tsv"
+  field_map:
+    Source database: database
+    Isolate Collection date: date
+    Release date: date_released
+    Update date: date_updated
+    Accession: accession
+    Isolate Lineage: strain
+    Geographic Region: region
+    Geographic Location: location
+    Submitter Names: authors
+    Submitter Affiliation: institution
+    SRA Accessions: sra_accessions
+    Length: length
+    Host Name: host
+    Isolate Lineage source: sample_type
+    BioSample accession: biosample_accession
+    Submitter Country: submitter_country
+  date_fields: ['date', 'date_released', 'date_updated']
+  expected_date_formats: ['%Y', '%Y-%m', '%Y-%m-%d', '%Y-%m-%dT%H:%M:%SZ']
+  titlecase:
+    abbreviations: ['USA']
+    articles: ['and', 'd', 'de', 'del', 'des', 'di', 'do', 'en', 'l', 'la', 'las', 'le', 'los', 'nad', 'of', 'op', 'sur', 'the', 'y']
+    fields: ['region', 'country', 'division', 'location']
+  authors_field: 'authors'
+  authors_default_value: '?'
+  abbr_authors_field: 'abbr_authors'
+  annotations: "config/annotations.tsv"
+  annotations_id: 'accession'
+  output_id_field: "accession"
+  output_sequence_field: "sequence"
+  metadata_columns:
+    - accession
+    - strain
+    - date
+    - date_released
+    - date_updated
+    - region
+    - country
+    - division
+    - location
+    - host
+    - sra_accessions
+    - abbr_authors
+    - institution
+    - submitter_country
+    - sample_type
