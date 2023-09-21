@@ -152,7 +152,7 @@ rule filter:
             --metadata-id-columns accession \
             --group-by year country \
             --include {input.include} \
-            --subsample-max-sequences 500 \
+            --subsample-max-sequences 1000 \
             --output-metadata {output.metadata}
         """
 
@@ -234,6 +234,7 @@ rule refine:
             --precision 3 \
             --keep-polytomies \
             --use-fft \
+            --root MH745077.1 DQ388279.1 \
             --output-node-data {output.node_data} \
             --coalescent {params.coalescent} \
             --date-inference {params.date_inference} \
