@@ -46,7 +46,7 @@ rule prealign:
         tsv="pre-processed/nextclade.tsv",
     shell:
         """
-        ./bin/nextclade run \
+        nextclade run \
             --input-ref {input.reference} \
             --input-annotation {input.genemap} \
             --output-tsv pre-processed/nextclade.tsv \
