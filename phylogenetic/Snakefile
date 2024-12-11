@@ -172,7 +172,7 @@ rule mask:
         """
 
 
-rule nextalign_after_mask:
+rule align_after_mask:
     input:
         fasta="builds/{build}/masked.fasta",
         reference="config/reference.fasta",
@@ -180,14 +180,14 @@ rule nextalign_after_mask:
     output:
         alignment="builds/{build}/aligned.fasta",
     params:
-        template_string=lambda w: f"builds/{w.build}/translations/gene.{{gene}}.fasta",
+        template_string=lambda w: f"builds/{w.build}/translations/gene.{{cds}}.fasta",
         genes=",".join(genes),
     shell:
         """
-        nextalign run \
+        nextclade run \
             --input-ref {input.reference} \
-            --input-gene-map {input.genemap} \
-            --genes {params.genes} \
+            --input-annotation {input.genemap} \
+            --cds-selection {params.genes} \
             --output-translations {params.template_string} \
             --output-fasta {output.alignment} \
             -- {input.fasta}
