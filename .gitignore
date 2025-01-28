@@ -1,39 +1,29 @@
-# Files created by workflows that we usually want to keep out of git
-auspice/
-builds/
-data/
-results/
-logs/
-benchmarks/
-bin/
-pre-processed/
+# pipeline output #
+ingest/benchmarks
+ingest/data
+ingest/logs
+ingest/results
+phylogenetic/auspice
+phylogenetic/benchmarks
+phylogenetic/data
+phylogenetic/logs
+phylogenetic/results
 
-# Sensitive environment variables
-environment*
-env.d/
 
-# Snakemake
-.snakemake/
+# Snakemake state dir #
+.snakemake
+snakemake_log
+
 
 # For Python #
-##############
 *.pyc
 .tox/
 .cache/
+__pycache__/*
 
-# Compiled source #
-###################
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
 
 # OS generated files #
-######################
 .DS_Store
-.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
@@ -41,13 +31,3 @@ Icon?
 ehthumbs.db
 Thumbs.db
 *~
-
-# IDE generated files #
-######################
-.vscode/
-
-# nohup output
-nohup.out
-
-# cluster logs
-slurm-*
