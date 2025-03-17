@@ -1,24 +1,31 @@
 """
-This part of the workflow handles the curation of metadata for sequences
-from NCBI and outputs the clean data as two separate files:
+This part of the workflow handles the curation of data from NCBI
 
-    - results/subset_metadata.tsv
-    - results/sequences.fasta
+REQUIRED INPUTS:
+
+    ndjson      = data/ncbi.ndjson
+
+OUTPUTS:
+
+    metadata    = results/metadata.tsv
+    seuqences   = results/sequences.fasta
+
 """
 
 
-# The following two rules can be ignored if you choose not to use the
-# generalized geolocation rules that are shared across pathogens.
-# The Nextstrain team will try to maintain a generalized set of geolocation
-# rules that can then be overridden by local geolocation rules per pathogen repo.
 rule fetch_general_geolocation_rules:
     output:
         general_geolocation_rules="data/general-geolocation-rules.tsv",
     params:
         geolocation_rules_url=config["curate"]["geolocation_rules_url"],
+    log:
+        "logs/fetch_general_geolocation_rules.txt",
+    benchmark:
+        "benchmarks/fetch_general_geolocation_rules.txt"
     shell:
-        """
-        curl {params.geolocation_rules_url} > {output.general_geolocation_rules}
+        r"""
+        curl {params.geolocation_rules_url:q} > {output.general_geolocation_rules:q} \
+          2> {log:q}
         """
 
 
@@ -28,9 +35,14 @@ rule concat_geolocation_rules:
         local_geolocation_rules=config["curate"]["local_geolocation_rules"],
     output:
         all_geolocation_rules="data/all-geolocation-rules.tsv",
+    log:
+        "logs/concat_geolocation_rules.txt",
+    benchmark:
+        "benchmarks/concat_geolocation_rules.txt"
     shell:
-        """
-        cat {input.general_geolocation_rules} {input.local_geolocation_rules} >> {output.all_geolocation_rules}
+        r"""
+        cat {input.general_geolocation_rules:q} {input.local_geolocation_rules:q} \
+          > {output.all_geolocation_rules:q} 2> {log:q}
         """
 
 
@@ -41,21 +53,13 @@ def format_field_map(field_map: dict[str, str]) -> str:
     return " ".join([f'"{key}"="{value}"' for key, value in field_map.items()])
 
 
-# This curate pipeline is based on existing pipelines for pathogen repos using NCBI data.
-# You may want to add and/or remove steps from the pipeline for custom metadata
-# curation for your pathogen. Note that the curate pipeline is streaming NDJSON
-# records between scripts, so any custom scripts added to the pipeline should expect
-# the input as NDJSON records from stdin and output NDJSON records to stdout.
-# The final step of the pipeline should convert the NDJSON records to two
-# separate files: a metadata TSV and a sequences FASTA.
 rule curate:
     input:
         sequences_ndjson="data/ncbi.ndjson",
-        # Change the geolocation_rules input path if you are removing the above two rules
         all_geolocation_rules="data/all-geolocation-rules.tsv",
         annotations=config["curate"]["annotations"],
     output:
-        metadata="results/all_metadata.tsv",
+        metadata=temp("data/all_metadata_intermediate.tsv"),
         sequences="results/sequences.fasta",
     log:
         "logs/curate.txt",
@@ -63,8 +67,11 @@ rule curate:
         "benchmarks/curate.txt"
     params:
         field_map=format_field_map(config["curate"]["field_map"]),
+        strain_regex=config["curate"]["strain_regex"],
+        strain_backup_fields=config["curate"]["strain_backup_fields"],
         date_fields=config["curate"]["date_fields"],
         expected_date_formats=config["curate"]["expected_date_formats"],
+        genbank_location_field=config["curate"]["genbank_location_field"],
         articles=config["curate"]["titlecase"]["articles"],
         abbreviations=config["curate"]["titlecase"]["abbreviations"],
         titlecase_fields=config["curate"]["titlecase"]["fields"],
@@ -75,45 +82,71 @@ rule curate:
         id_field=config["curate"]["output_id_field"],
         sequence_field=config["curate"]["output_sequence_field"],
     shell:
-        """
-        (cat {input.sequences_ndjson} \
-            | ./vendored/transform-field-names \
+        r"""
+        (cat {input.sequences_ndjson:q} \
+            | augur curate rename \
                 --field-map {params.field_map} \
             | augur curate normalize-strings \
+            | augur curate transform-strain-name \
+                --strain-regex {params.strain_regex:q} \
+                --backup-fields {params.strain_backup_fields:q} \
             | augur curate format-dates \
-                --date-fields {params.date_fields} \
-                --expected-date-formats {params.expected_date_formats} \
-            | ./vendored/transform-genbank-location \
+                --date-fields {params.date_fields:q} \
+                --expected-date-formats {params.expected_date_formats:q} \
+            | augur curate parse-genbank-location \
+                --location-field {params.genbank_location_field:q} \
             | augur curate titlecase \
-                --titlecase-fields {params.titlecase_fields} \
-                --articles {params.articles} \
-                --abbreviations {params.abbreviations} \
-            | ./vendored/transform-authors \
-                --authors-field {params.authors_field} \
-                --default-value {params.authors_default_value} \
-                --abbr-authors-field {params.abbr_authors_field} \
-            | ./vendored/apply-geolocation-rules \
-                --geolocation-rules {input.all_geolocation_rules} \
-            | ./vendored/merge-user-metadata \
-                --annotations {input.annotations} \
-                --id-field {params.annotations_id} \
-            | augur curate passthru \
-                --output-metadata {output.metadata} \
-                --output-fasta {output.sequences} \
-                --output-id-field {params.id_field} \
-                --output-seq-field {params.sequence_field} ) 2>> {log}
+                --titlecase-fields {params.titlecase_fields:q} \
+                --articles {params.articles:q} \
+                --abbreviations {params.abbreviations:q} \
+            | augur curate abbreviate-authors \
+                --authors-field {params.authors_field:q} \
+                --default-value {params.authors_default_value:q} \
+                --abbr-authors-field {params.abbr_authors_field:q} \
+            | augur curate apply-geolocation-rules \
+                --geolocation-rules {input.all_geolocation_rules:q} \
+            | augur curate apply-record-annotations \
+                --annotations {input.annotations:q} \
+                --id-field {params.annotations_id:q} \
+                --output-metadata {output.metadata:q} \
+                --output-fasta {output.sequences:q} \
+                --output-id-field {params.id_field:q} \
+                --output-seq-field {params.sequence_field:q}
+        ) 2> {log:q}
         """
 
+
+rule add_genbank_url:
+    input:
+        metadata="data/all_metadata_intermediate.tsv",
+    output:
+        metadata="data/all_metadata.tsv",
+    log:
+        "logs/add_genbank_url.txt",
+    benchmark:
+        "benchmarks/add_genbank_url.txt",
+    shell:
+        r"""
+        csvtk mutate2 -t \
+          -n url \
+          -e '"https://www.ncbi.nlm.nih.gov/nuccore/" + $accession' \
+          {input.metadata:q} > {output.metadata:q} 2> {log:q}
+        """
 
 rule subset_metadata:
     input:
-        metadata="results/all_metadata.tsv",
+        metadata="data/all_metadata.tsv",
     output:
         subset_metadata="results/metadata.tsv",
     params:
         metadata_fields=",".join(config["curate"]["metadata_columns"]),
+    log:
+        "logs/subset_metadata.txt",
+    benchmark:
+        "benchmarks/subset_metadata.txt"
     shell:
-        """
-        tsv-select -H -f {params.metadata_fields} \
-            {input.metadata} > {output.subset_metadata}
+        r"""
+        csvtk cut -t -f {params.metadata_fields:q} \
+            {input.metadata:q} \
+        > {output.subset_metadata:q} 2> {log:q}
         """
