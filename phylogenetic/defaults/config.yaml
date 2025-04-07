@@ -1,6 +1,6 @@
 builds:
-    - "genome"
-#FIXME    - "E1"
+  - "genome"
+  - "E1"
 strain_id_field: "accession"
 files:
     description: "defaults/description.md"
