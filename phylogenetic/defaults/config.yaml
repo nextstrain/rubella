@@ -3,42 +3,37 @@ builds:
   - "E1"
 strain_id_field: "accession"
 files:
-    description: "defaults/description.md"
-    genome:
-        auspice_config: "defaults/auspice_config_genome.json"
-        exclude: "defaults/dropped_strains_genome.txt"
-        genemap: "defaults/genemap_genome.gff"
-        include: "defaults/include_strains_genome.txt"
-        reference: "defaults/reference_genome.fasta"
-    E1:
-        auspice_config: "defaults/auspice_config_E1.json"
-        exclude: "defaults/dropped_strains_E1.txt"
-        genemap: "defaults/genemap_E1.gff"
-        include: "defaults/include_strains_E1.txt"
-        reference: "defaults/reference_E1.fasta"
+  description: "defaults/description.md"
+  genome:
+    auspice_config: "defaults/auspice_config_genome.json"
+    exclude: "defaults/dropped_strains_genome.txt"
+    genemap: "defaults/genemap_genome.gff"
+    include: "defaults/include_strains_genome.txt"
+    reference: "defaults/reference_genome.fasta"
+  E1:
+    auspice_config: "defaults/auspice_config_E1.json"
+    exclude: "defaults/dropped_strains_E1.txt"
+    genemap: "defaults/genemap_E1.gff"
+    include: "defaults/include_strains_E1.txt"
+    reference: "defaults/reference_E1.fasta"
 filter:
-    group_by: "country year"
-    min_date: "1900-01-01"
-    genome:
-        min_length: 8000
-        sequences_per_group: 20
-    E1:
-        min_length: 1000
-        sequences_per_group: 200
+  group_by: "year country"
+  genome:
+    min_length: 8000
+    sequences_per_group: 20
+  E1:
+    min_length: 1000
+    sequences_per_group: 200
 refine:
-    coalescent: "opt"
-    date_inference: "marginal"
-    clock_filter_iqd: 4
-    clock_rate: 0.0002
-    clock_std_dev: 0.00001
-ancestral:
-    inference: "joint"
+  coalescent: "opt"
+  date_inference: "marginal"
+  clock_filter_iqd: 4
 traits:
-    columns: "clade region"
+  columns: "clade region"
 tip_frequencies:
-    min_date: "2010-01-01"
-    max_date: "6M"
-    narrow_bandwidth: 0.2
-    wide_bandwidth: 0.6
+  min_date: "2010-01-01"
+  max_date: "6M"
+  narrow_bandwidth: 0.2
+  wide_bandwidth: 0.6
 export:
-    metadata_columns: "clade region"
+  metadata_columns: "clade region"
