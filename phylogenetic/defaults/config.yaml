@@ -6,34 +6,39 @@ files:
   description: "defaults/description.md"
   genome:
     auspice_config: "defaults/auspice_config_genome.json"
+    clades: "defaults/clades_genome.tsv"
     exclude: "defaults/dropped_strains_genome.txt"
     genemap: "defaults/genemap_genome.gff"
     include: "defaults/include_strains_genome.txt"
     reference: "defaults/reference_genome.fasta"
   E1:
     auspice_config: "defaults/auspice_config_E1.json"
+    clades: "defaults/clades_E1.tsv"
     exclude: "defaults/dropped_strains_E1.txt"
     genemap: "defaults/genemap_E1.gff"
     include: "defaults/include_strains_E1.txt"
     reference: "defaults/reference_E1.fasta"
 filter:
-  group_by: "year country"
+  group_by: "country year"
   genome:
-    min_length: 8000
+    min_length: 7000
     sequences_per_group: 20
   E1:
-    min_length: 1000
+    min_length: 700
     sequences_per_group: 200
 refine:
   coalescent: "opt"
   date_inference: "marginal"
   clock_filter_iqd: 4
+ancestral:
+  inference: "joint"
 traits:
-  columns: "clade region"
+  columns: "region"
 tip_frequencies:
   min_date: "2010-01-01"
-  max_date: "6M"
-  narrow_bandwidth: 0.2
-  wide_bandwidth: 0.6
-export:
-  metadata_columns: "clade region"
+  # 0.083 = 1 / 12 (one month)
+  narrow_bandwidth: 0.083
+  # 0.250 = 3 / 12 (three months)
+  wide_bandwidth: 0.250
+  proportion_wide: 0
+  pivot_interval: 1

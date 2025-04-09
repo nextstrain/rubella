@@ -1,16 +1,9 @@
-##gff-version 3
-#!gff-spec-version 1.21
-#!processor NCBI annotwriter
-##sequence-region NC_076948.1 1 9761
-##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=11041
-NC_076948.1	RefSeq	region	1	9761	.	+	.	ID=NC_076948.1:1..9761;Dbxref=taxon:11041;collection-date=2008;country=USA: North Dakota;gbkey=Src;genome=genomic;genotype=2B;mol_type=genomic RNA;nat-host=Homo sapiens;note=infection originated in India;strain=RVi/Bismarck.ND.USA/23.08/2B
-NC_076948.1	RefSeq	gene	41	6391	.	+	.	ID=gene-QKT28_gp1;gene_name=NSP
-NC_076948.1	RefSeq	CDS	41	6391	.	+	0	ID=cds-YP_010801281.1;Parent=gene-QKT28_gp1;gene_name=NSP
-NC_076948.1	RefSeq	mature_protein_region_of_CDS	41	3943	.	+	.	ID=id-YP_010801281.1:1..1301;Parent=cds-YP_010801281.1;gbkey=Prot;product=protease p150;protein_id=YP_010809074.1
-NC_076948.1	RefSeq	mature_protein_region_of_CDS	3944	6388	.	+	.	ID=id-YP_010801281.1:1302..2116;Parent=cds-YP_010801281.1;gbkey=Prot;product=RNA-directed RNA polymerase/triphosphatase/helicase p90;protein_id=YP_010809075.1
-NC_076948.1	RefSeq	gene	6511	9702	.	+	.	ID=gene-QKT28_gp2;gene_name=SP
-NC_076948.1	RefSeq	CDS	6511	9702	.	+	0	ID=cds-YP_010801282.1;Parent=gene-QKT28_gp2;gene_name=SP
-NC_076948.1	RefSeq	mature_protein_region_of_CDS	6511	7410	.	+	.	ID=id-YP_010801282.1:1..300;Parent=cds-YP_010801282.1;gbkey=Prot;product=capsid protein;protein_id=YP_010809076.1
-NC_076948.1	RefSeq	mature_protein_region_of_CDS	7411	8256	.	+	.	ID=id-YP_010801282.1:301..582;Parent=cds-YP_010801282.1;gbkey=Prot;product=E2 envelope glycoprotein;protein_id=YP_010809077.1
-NC_076948.1	RefSeq	mature_protein_region_of_CDS	8257	9699	.	+	.	ID=id-YP_010801282.1:583..1063;Parent=cds-YP_010801282.1;gbkey=Prot;product=E1 envelope glycoprotein;protein_id=YP_010809078.1
-
+##sequence-region genome 1 9761
+NC_076948.1	feature	source	1	9761	.	+	.	gene=nuc
+NC_076948.1	feature	gene	41	6391	.	+	.	gene_name=NSP
+NC_076948.1	feature	gene	41	3943	.	+	.	gene_name=protease_p150
+NC_076948.1	feature	gene	3944	6388	.	+	.	gene_name=RNA_pol
+NC_076948.1	feature	gene	6511	9702	.	+	.	gene_name=SP
+NC_076948.1	feature	gene	6511	7410	.	+	.	gene_name=capsid
+NC_076948.1	feature	gene	7411	8256	.	+	.	gene_name=E2
+NC_076948.1	feature	gene	8257	9699	.	+	.	gene_name=E1

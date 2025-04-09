@@ -19,8 +19,7 @@ Our bioinformatic processing workflow can be found at
 #### Underlying data
 
 We curate sequence data and metadata from NCBI as starting point for
-our analyses. We gratefully acknowledge the large contribution of over
-500 sequences from Hill, et al.
+our analyses.
 
 ---
 

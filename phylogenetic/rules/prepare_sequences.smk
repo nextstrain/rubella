@@ -132,7 +132,7 @@ rule filter_E1:
     log:
         "logs/E1/filter_E1.txt",
     benchmark:
-        "benchmarks/genome/filter_E1.txt"
+        "benchmarks/E1/filter_E1.txt"
     shell:
         r"""
         augur filter \

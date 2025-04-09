@@ -11,6 +11,8 @@ rule ancestral:
         alignment="results/{build}/aligned_and_filtered.fasta",
     output:
         node_data="results/{build}/nt_muts.json",
+    params:
+        inference=config["ancestral"]["inference"],
     log:
         "logs/{build}/ancestral.txt",
     benchmark:
@@ -21,7 +23,8 @@ rule ancestral:
             --tree {input.tree:q} \
             --alignment {input.alignment:q} \
             --output-node-data {output.node_data:q} \
-          2> {log:q}
+            --inference {params.inference:q} \
+          2>&1 | tee {log:q}
         """
 
 
@@ -44,7 +47,31 @@ rule translate:
             --ancestral-sequences {input.node_data:q} \
             --reference-sequence {input.genemap:q} \
             --output {output.node_data:q} \
-          2> {log:q}
+          2>&1 | tee {log:q}
+        """
+
+
+rule clades:
+    """Annotating clades"""
+    input:
+        tree="results/{build}/tree.nwk",
+        nt_muts="results/{build}/nt_muts.json",
+        aa_muts="results/{build}/aa_muts.json",
+        clade_defs=lambda w: config["files"][w.build]["clades"],
+    output:
+        clades="results/{build}/clades.json",
+    log:
+        "logs/{build}/clades.txt",
+    benchmark:
+        "benchmarks/{build}/clades.txt"
+    shell:
+        r"""
+        augur clades \
+          --tree {input.tree:q} \
+          --mutations {input.nt_muts:q} {input.aa_muts:q} \
+          --clades {input.clade_defs:q} \
+          --output {output.clades:q} \
+        2>&1 | tee {log:q}
         """
 
 

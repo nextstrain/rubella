@@ -39,7 +39,6 @@ rule refine:
         node_data="results/{build}/branch_lengths.json",
     params:
         strain_id=config["strain_id_field"],
-        timetree=lambda w: "--timetree" if w.build == "genome" else "--keep-root",
         coalescent=config["refine"]["coalescent"],
         date_inference=config["refine"]["date_inference"],
         clock_filter_iqd=config["refine"]["clock_filter_iqd"],
@@ -52,11 +51,12 @@ rule refine:
         augur refine \
             --tree {input.tree:q} \
             --alignment {input.alignment:q} \
+            --root mid_point \
             --metadata {input.metadata:q} \
             --output-tree {output.tree:q} \
             --output-node-data {output.node_data:q} \
             --metadata-id-columns {params.strain_id:q} \
-            {params.timetree:q} \
+            --timetree \
             --coalescent {params.coalescent:q} \
             --date-confidence \
             --date-inference {params.date_inference:q} \
