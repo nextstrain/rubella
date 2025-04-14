@@ -1,2 +1,2 @@
-JF727653.2  #off the clock
-JF727654.2  #off the clock
+JF727653  #off the clock
+JF727654  #off the clock
