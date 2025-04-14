@@ -11,6 +11,7 @@ OUTPUTS:
 
 """
 
+
 rule fetch_ncbi_dataset_package:
     params:
         ncbi_taxon_id=config["ncbi_taxon_id"],

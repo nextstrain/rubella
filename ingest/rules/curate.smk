@@ -124,7 +124,7 @@ rule add_genbank_url:
     log:
         "logs/add_genbank_url.txt",
     benchmark:
-        "benchmarks/add_genbank_url.txt",
+        "benchmarks/add_genbank_url.txt"
     shell:
         r"""
         csvtk mutate2 -t \
@@ -132,6 +132,7 @@ rule add_genbank_url:
           -e '"https://www.ncbi.nlm.nih.gov/nuccore/" + $accession' \
           {input.metadata:q} > {output.metadata:q} 2> {log:q}
         """
+
 
 rule subset_metadata:
     input:

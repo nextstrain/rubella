@@ -39,20 +39,19 @@ phylogenetic tree.
 
 rule filter_genome:
     input:
-        exclude = config["files"]["genome"]["exclude"],
-        include = config["files"]["genome"]["include"],
+        exclude=config["files"]["genome"]["exclude"],
+        include=config["files"]["genome"]["include"],
         #FIXME metadata = "data/metadata.tsv",
         #FIXME sequences = "data/sequences.fasta"
-        metadata = "../ingest/results/metadata.tsv",
-        sequences = "../ingest/results/sequences.fasta"
+        metadata="../ingest/results/metadata.tsv",
+        sequences="../ingest/results/sequences.fasta",
     output:
-        sequences = "results/genome/filtered.fasta"
+        sequences="results/genome/filtered.fasta",
     params:
-        group_by = config["filter"]["group_by"],
-        min_date = config["filter"]["min_date"],
-        min_length = config["filter"]["genome"]["min_length"],
-        sequences_per_group = config["filter"]["genome"]["sequences_per_group"],
-        strain_id = config["strain_id_field"]
+        group_by=config["filter"]["group_by"],
+        min_length=config["filter"]["genome"]["min_length"],
+        sequences_per_group=config["filter"]["genome"]["sequences_per_group"],
+        strain_id=config["strain_id_field"],
     log:
         "logs/genome/filter_genome.txt",
     benchmark:
@@ -68,10 +67,10 @@ rule filter_genome:
             --output {output.sequences:q} \
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group:q} \
-            --min-date {params.min_date:q} \
             --min-length {params.min_length:q} \
           2> {log:q}
         """
+
 
 rule align_genome:
     input:
@@ -95,26 +94,21 @@ rule align_genome:
 
 rule align_and_extract_E1:
     input:
+        #FIXME sequences = "data/sequences.fasta"
+        sequences="../ingest/results/sequences.fasta",
         reference=config["files"]["E1"]["reference"],
-        sequences = "data/sequences.fasta",
     output:
-        alignment = "results/E1/aligned.fasta"
-    params:
-        group_by = config["filter"]["group_by"],
-        min_date = config["filter"]["min_date"],
-        min_length = config["filter"]["E1"]["min_length"],
-        sequences_per_group = config["filter"]["E1"]["sequences_per_group"],
-        strain_id = config["strain_id_field"]
+        alignment="results/E1/aligned.fasta",
     log:
-        "logs/genome/filter_and_extract_E1.txt",
+        "logs/E1/filter_and_extract_E1.txt",
     benchmark:
         "benchmarks/genome/filter_and_extract_E1.txt"
     shell:
         r"""
         augur align \
-            --sequences {input.sequences} \
-            --reference-sequence {input.reference} \
-            --output {output.alignment} \
+            --sequences {input.sequences:q} \
+            --reference-sequence {input.reference:q} \
+            --output {output.alignment:q} \
             --fill-gaps \
             --remove-reference \
           2> {log:q}
@@ -123,35 +117,33 @@ rule align_and_extract_E1:
 
 rule filter_E1:
     input:
-        exclude = config["files"]["E1"]["exclude"],
-        include = config["files"]["E1"]["include"],
+        sequences="results/E1/aligned.fasta",
         #FIXME metadata = "data/metadata.tsv",
-        metadata = "../ingest/results/metadata.tsv",
-        sequences = "results/E1/aligned.fasta"
+        metadata="../ingest/results/metadata.tsv",
+        exclude=config["files"]["E1"]["exclude"],
+        include=config["files"]["E1"]["include"],
     output:
-        sequences = "results/E1/aligned_and_filtered.fasta"
+        sequences="results/E1/aligned_and_filtered.fasta",
     params:
-        group_by = config["filter"]["group_by"],
-        min_date = config["filter"]["min_date"],
-        min_length = config["filter"]["E1"]["min_length"],
-        sequences_per_group = config["filter"]["E1"]["sequences_per_group"],
-        strain_id = config["strain_id_field"]
+        strain_id=config["strain_id_field"],
+        group_by=config["filter"]["group_by"],
+        sequences_per_group=config["filter"]["E1"]["sequences_per_group"],
+        min_length=config["filter"]["E1"]["min_length"],
     log:
-        "logs/genome/filter_E1.txt",
+        "logs/E1/filter_E1.txt",
     benchmark:
-        "benchmarks/genome/filter_E1.txt"
+        "benchmarks/E1/filter_E1.txt"
     shell:
         r"""
         augur filter \
             --sequences {input.sequences:q} \
             --metadata {input.metadata:q} \
-            --metadata-id-columns {params.strain_id:q} \
             --exclude {input.exclude:q} \
             --include {input.include:q} \
             --output {output.sequences:q} \
+            --metadata-id-columns {params.strain_id:q} \
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group:q} \
-            --min-date {params.min_date:q} \
             --min-length {params.min_length:q} \
           2> {log:q}
         """

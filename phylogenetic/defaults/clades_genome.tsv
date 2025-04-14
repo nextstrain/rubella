@@ -1,0 +1,40 @@
+clade	gene	site	alt
+1A	nuc	9028	G
+1A	nuc	9049	G
+
+1A (vaccine derived)	clade	1A
+1A (vaccine derived)	nuc	8885	C
+
+1B	clade	1A
+1B	nuc	8782	A
+
+1C	clade	1A
+1C	nuc	8995	C
+1C	nuc	9208	T
+
+1D	clade	1A
+1D	nuc	8962	T
+1D	nuc	9253	T
+
+1E	clade	1A
+1E	nuc	8788	T
+1E	nuc	8932	C
+1E	nuc	8962	T
+
+1F	clade	1A
+1F	nuc	9307	T
+
+2A	nuc	9250	C
+2A	nuc	8797	C
+2A	nuc	9226	A
+2A	nuc	9301	C
+
+2B	nuc	8860	C
+2B	nuc	8797	C
+2B	nuc	9226	A
+2B	nuc	9301	C
+
+2C	nuc	8770	G
+2C	nuc	8797	T
+2C	nuc	9226	A
+2C	nuc	9301	C
