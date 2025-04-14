@@ -58,7 +58,7 @@ rule export:
             --metadata-id-columns {params.strain_id:q} \
             --title {params.auspice_title:q} \
             --include-root-sequence-inline \
-          2> {log:q}
+          2>&1 | tee {log:q}
         """
 
 
@@ -79,17 +79,22 @@ rule tip_frequencies:
         wide_bandwidth=config["tip_frequencies"]["wide_bandwidth"],
         proportion_wide=config["tip_frequencies"]["proportion_wide"],
         pivot_interval=config["tip_frequencies"]["pivot_interval"],
+    log:
+        "logs/{build}/tip_frequencies.txt",
+    benchmark:
+        "benchmarks/{build}/tip_frequencies.txt"
     shell:
         r"""
         augur frequencies \
             --method kde \
-            --tree {input.tree} \
-            --metadata {input.metadata} \
-            --metadata-id-columns {params.strain_id} \
-            --min-date {params.min_date} \
-            --narrow-bandwidth {params.narrow_bandwidth} \
-            --wide-bandwidth {params.wide_bandwidth} \
-            --proportion-wide {params.proportion_wide} \
-            --pivot-interval {params.pivot_interval} \
-            --output {output.tip_freq}
+            --tree {input.tree:q} \
+            --metadata {input.metadata:q} \
+            --metadata-id-columns {params.strain_id:q} \
+            --min-date {params.min_date:q} \
+            --narrow-bandwidth {params.narrow_bandwidth:q} \
+            --wide-bandwidth {params.wide_bandwidth:q} \
+            --proportion-wide {params.proportion_wide:q} \
+            --pivot-interval {params.pivot_interval:q} \
+            --output {output.tip_freq:q}
+          2>&1 | tee {log:q}
         """

@@ -99,5 +99,5 @@ rule traits:
             --metadata-id-columns {params.strain_id:q} \
             --columns {params.columns} \
             --confidence \
-          2> {log:q}
+          2>&1 | tee {log:q}
         """

@@ -18,7 +18,7 @@ rule tree:
         augur tree \
             --alignment {input.alignment:q} \
             --output {output.tree:q}
-          2> {log:q}
+          2>&1 | tee {log:q}
         """
 
 
@@ -62,5 +62,5 @@ rule refine:
             --date-inference {params.date_inference:q} \
             --clock-filter-iqd {params.clock_filter_iqd:q} \
             --stochastic-resolve \
-          2> {log:q}
+          2>&1 | tee {log:q}
         """

@@ -68,7 +68,7 @@ rule filter_genome:
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group:q} \
             --min-length {params.min_length:q} \
-          2> {log:q}
+          2>&1 | tee {log:q}
         """
 
 
@@ -88,7 +88,7 @@ rule align_genome:
             --sequences {input.sequences} \
             --output {output.alignment} \
             --fill-gaps \
-          2> {log:q}
+          2>&1 | tee {log:q}
         """
 
 
@@ -111,7 +111,7 @@ rule align_and_extract_E1:
             --output {output.alignment:q} \
             --fill-gaps \
             --remove-reference \
-          2> {log:q}
+          2>&1 | tee {log:q}
         """
 
 
@@ -145,5 +145,5 @@ rule filter_E1:
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group:q} \
             --min-length {params.min_length:q} \
-          2> {log:q}
+          2>&1 | tee {log:q}
         """
