@@ -34,12 +34,13 @@ rule export:
         aa_muts="results/{build}/aa_muts.json",
         clades="results/{build}/clades.json",
         colors="data/colors.tsv",
-        auspice_config=lambda w: config["files"][w.build]["auspice_config"],
+        auspice_config=config["files"]["auspice_config"],
         description=config["files"]["description"],
     output:
         auspice_json="auspice/rubella_{build}.json",
     params:
         strain_id=config["strain_id_field"],
+        auspice_title=lambda w: config["files"][w.build]["auspice_title"],
     log:
         "logs/{build}/export.txt",
     benchmark:
@@ -55,6 +56,7 @@ rule export:
             --description {input.description:q} \
             --output {output.auspice_json:q} \
             --metadata-id-columns {params.strain_id:q} \
+            --title {params.auspice_title:q} \
             --include-root-sequence-inline \
           2> {log:q}
         """
