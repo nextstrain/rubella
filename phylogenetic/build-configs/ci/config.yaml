@@ -1,0 +1,4 @@
+builds:
+  - "genome"
+custom_rules:
+  - build-configs/ci/copy_example_data.smk
