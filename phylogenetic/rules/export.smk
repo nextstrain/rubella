@@ -8,8 +8,7 @@ rule colors:
     input:
         color_schemes="defaults/color_schemes.tsv",
         color_orderings="defaults/color_orderings.tsv",
-        #FIXME metadata = "data/metadata.tsv",
-        metadata="../ingest/results/metadata.tsv",
+        metadata="data/metadata.tsv",
     output:
         colors="data/colors.tsv",
     shell:
@@ -26,8 +25,7 @@ rule export:
     """Exporting data files for for auspice"""
     input:
         tree="results/{build}/tree.nwk",
-        #FIXME metadata = "data/metadata.tsv",
-        metadata="../ingest/results/metadata.tsv",
+        metadata="data/metadata.tsv",
         branch_lengths="results/{build}/branch_lengths.json",
         traits="results/{build}/traits.json",
         nt_muts="results/{build}/nt_muts.json",
@@ -68,8 +66,7 @@ rule tip_frequencies:
     """
     input:
         tree="results/{build}/tree.nwk",
-        #FIXME metadata = "data/metadata.tsv"
-        metadata="../ingest/results/metadata.tsv",
+        metadata="data/metadata.tsv",
     output:
         tip_freq="auspice/rubella_{build}_tip-frequencies.json",
     params:

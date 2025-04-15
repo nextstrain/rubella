@@ -32,8 +32,7 @@ rule refine:
     input:
         tree="results/{build}/tree_raw.nwk",
         alignment="results/{build}/aligned_and_filtered.fasta",
-        #FIXME metadata = "data/metadata.tsv"
-        metadata="../ingest/results/metadata.tsv",
+        metadata="data/metadata.tsv",
     output:
         tree="results/{build}/tree.nwk",
         node_data="results/{build}/branch_lengths.json",
