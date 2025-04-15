@@ -1,8 +1,15 @@
-# Nextstrain repository for rubella
+# Nextstrain repository for rubella virus
 
-TODO write me
+This repository contains two workflows for the analysis of rubella
+virus data:
 
-## Installation
+- [`ingest/`][] - Download data from GenBank, clean, and curate it
+- [`phylogenetic/`][] - Filter sequences, align, construct phylogency,
+  and export for visualization
+
+Each workflow directory contains a `README.md` file with more
+information. The results of running these workflows are publicly
+visible at [nextstrain.org/rubella][].
 
 ## Installation
 
@@ -11,7 +18,15 @@ suite of software tools.
 
 ## Quick start
 
-TODO write me
+Run the phylogenetic workflow by executing the following commands in
+the repository checkout, after installing `nextstrain` per the above
+instructions:
+
+```bash
+cd phylogenetic/
+nextstrain build .
+nextstrain view .
+```
 
 Further documentation is available at "[Running a pathogen workflow][]".
 
@@ -36,6 +51,9 @@ Note that these pre-commit checks are also run in a GitHub Action when
 changes are pushed to GitHub, so correcting issues locally will
 prevent extra cycles of correction.
 
+[`ingest/`]: ./ingest
+[`phylogenetic/`]: ./phylogenetic
+[nextstrain.org/rubella]: https://nextstrain.org/rubella
 [Running a pathogen workflow]: https://docs.nextstrain.org/en/latest/tutorials/running-a-workflow.html
 [pre-commit]: https://pre-commit.com
 [standard installation instructions]: https://docs.nextstrain.org/en/latest/install.html
