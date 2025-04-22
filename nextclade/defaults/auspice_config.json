@@ -1,0 +1,40 @@
+{
+  "title": "Real-time tracking of rubella virus full genome virus evolution",
+  "maintainers": [
+    {
+      "name": "John SJ Anderson",
+      "url": "https://bedford.io/team/john-sj-anderson/"
+    },
+    { "name": "the Nextstrain team", "url": "https://nextstrain.org/team" }
+  ],
+  "data_provenance": [
+    {
+      "name": "GenBank",
+      "url": "https://www.ncbi.nlm.nih.gov/genbank/"
+    }
+  ],
+  "build_url": "https://github.com/nextstrain/rubella",
+  "colorings": [
+    {
+      "key": "gt",
+      "title": "Genotype",
+      "type": "categorical"
+    },
+    {
+      "key": "region",
+      "title": "Region",
+      "type": "categorical"
+    },
+    {
+      "key": "country",
+      "title": "Country",
+      "type": "categorical"
+    }
+  ],
+  "geo_resolutions": ["country", "region"],
+  "display_defaults": {
+    "map_triplicate": true,
+    "color_by": "clade_membership"
+  },
+  "filters": ["clade_membership", "region", "country", "author", "host"]
+}

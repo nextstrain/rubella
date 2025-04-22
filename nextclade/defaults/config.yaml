@@ -1,0 +1,16 @@
+files:
+  auspice_config: "defaults/auspice_config.json"
+  auspice_json: "auspice/tree.json"
+  clades: "defaults/clades.tsv"
+  colors: "defaults/colors.tsv"
+  include: "defaults/include_strains.txt"
+  reference_E1_fasta: "defaults/reference.fasta"
+  reference_E1_gff: "defaults/genome_annotation.gff3"
+strain_id_field: "accession"
+align_and_extract_E1:
+  min_length: 700
+  min_seed_cover: 0.01
+ancestral:
+  inference: "joint"
+export:
+  metadata_columns: "strain"
