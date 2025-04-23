@@ -50,7 +50,7 @@ rule refine:
         augur refine \
             --tree {input.tree:q} \
             --alignment {input.alignment:q} \
-            --root mid_point \
+            --root best \
             --metadata {input.metadata:q} \
             --output-tree {output.tree:q} \
             --output-node-data {output.node_data:q} \
