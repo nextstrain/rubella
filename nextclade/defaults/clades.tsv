@@ -2,20 +2,19 @@ clade	gene	site	alt
 1a	nuc	540	A
 1a	nuc	576	G
 
-1a(VAX)	nuc	489	T
-1a(VAX)	nuc	628	C
+1a(VAX)-L1	nuc	489	T
 
-1B	nuc	525	A
+1a(VAX)-L2	nuc	628	C
+
+1B	nuc	531	T
 
 1C	nuc	525	T
 1C	nuc	609	C
 1C	nuc	738	C
 1C	nuc	951	T
 
-1D	nuc	24	T
-1D	nuc	279	T
-1D	nuc	996	T
-1D	nuc	1236	T
+1D	nuc	184	C
+1D	nuc	1047	T
 
 1E	nuc	45	G
 1E	nuc	411	T
@@ -45,7 +44,6 @@ clade	gene	site	alt
 
 2A	nuc	30	G
 2A	nuc	189	A
-2A	nuc	297	G
 2A	nuc	309	T
 2A	nuc	384	A
 2A	nuc	498	G
@@ -58,10 +56,8 @@ clade	gene	site	alt
 2A	nuc	1230	A
 2A	nuc	1257	A
 
-2B	nuc	297	G
 2B	nuc	537	G
 2B	nuc	603	C
-2B	nuc	771	C
 2B	nuc	957	C
 2B	nuc	1077	G
 2B	nuc	1092	A
