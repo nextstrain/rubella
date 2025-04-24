@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+"""
+Parse ENTREZ records in NDJSON format and extracts the genotype
+"""
+
+from augur.io.json import load_ndjson
+import argparse
+from collections.abc import Generator
+from collections import defaultdict
+import re
+from pprint import pp
+from sys import stderr
+from csv import DictWriter
+
+def clean_up_genotype(genotype: str) -> str|None:
+    if genotype.startswith("RV"):
+        genotype = genotype[2:]
+    if genotype.endswith(';'):
+        genotype = genotype[:-1]
+
+    # coerce to uppercase -- NOTE: John A mentioned there is semantic meaning
+    # in case here. TODO XXX
+    genotype = genotype.upper()
+
+    # Some strain names encode "CRS" in what we interpret to be the genotype...
+    if genotype=='CRS':
+        return None
+    if genotype=='UNKNOWN' or genotype=='GENOTYPE':
+        return None
+
+    return genotype
+
+
+def extract_genotype(s: str) -> str|None:
+    # genotype is often explicitly noted
+    if groups:=re.search("[Gg]enotype:? (\S+)", s):
+        return clean_up_genotype(groups[1])
+    # look for genotype encoded in strain name. Strain names examples:
+    # RVs/Osaka.JPN/33.12[1E]
+    # RVs/Shizuoka.JPN/13.15/[1E]
+    # RVs/Osaka.JPN/39.13/[2B](CRS)
+    # RVi/Tokyo.JPN18.13[2B]
+    # RVi/Taipei.TWN/08.09/2
+    if groups:=re.search("(\S+/\S+(/\S+){0,2})", s):
+        strain_name = groups[1]
+        if g:=re.search(".*\[(\S+)\]", strain_name):
+            return clean_up_genotype(g[1])
+
+    return None
+
+
+def source_feature(record: dict):
+    return next((f for f in record['features'] if f['type']=='source'), {})
+
+
+def as_list(x: str|list[str]) -> list[str]:
+    return x if isinstance(x, list) else [x]
+
+
+def potential_fields(record: dict) -> Generator[str, None, None]:
+    """
+    Yields strings which may contain genotype information
+    """
+    yield from as_list(record['record'].get('isolate', []))
+    yield from as_list(record['record'].get('note', []))
+    yield from as_list(record['record'].get('organism', []))
+    yield from as_list(record['record'].get('strain', []))
+    # Not considering source_feature(record).get("annotations", "").get("isolate", "")
+    # as (it seems) it's the same as record.isolate
+    yield record['record'].get('source', "")
+    yield source_feature(record).get("strain", "")
+    yield source_feature(record).get("title", "")
+
+
+def accession(record: dict) -> str:
+    return record['record']['accessions'][0]
+
+
+if __name__=="__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--ndjson', required=True, type=str)
+    parser.add_argument('--output', required=True, type=str, help='Output file (TSV)')
+    args = parser.parse_args()
+
+    with open(args.ndjson) as fh:
+        records = [r for r in load_ndjson(fh)]
+
+    counts = {'records': 0, 'match': 0, 'observed_genotypes': defaultdict(int)}
+    output = []
+
+    for record in records:
+        counts["records"]+=1
+        try:
+            for field in potential_fields(record):
+                if genotype:=extract_genotype(field):
+                    counts['match']+=1
+                    counts['observed_genotypes'][genotype]+=1
+                    output.append({'accession': accession(record), 'genotype_metadata': genotype})
+                    raise StopIteration
+        except StopIteration:
+            pass
+
+    pp(counts, stream=stderr)
+
+    with open(args.output, 'w', newline='') as fh:
+        tsv_writer = DictWriter(fh, list(output[0].keys()), delimiter='\t')
+        tsv_writer.writeheader()
+        for row in output:
+            tsv_writer.writerow(row)

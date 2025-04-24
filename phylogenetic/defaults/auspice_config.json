@@ -24,6 +24,11 @@
       "key": "country",
       "title": "Country",
       "type": "categorical"
+    },
+    {
+      "key": "genotype_metadata",
+      "title": "Genotype (GenBank annotation)",
+      "type": "categorical"
     }
   ],
   "geo_resolutions": ["region", "country"],

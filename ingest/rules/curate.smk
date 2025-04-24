@@ -133,10 +133,40 @@ rule add_genbank_url:
           {input.metadata:q} > {output.metadata:q} 2> {log:q}
         """
 
+rule parse_genotype:
+    # You may want to rewrite these scripts to be in a more canonical `augur curate` style
+    # chain...
+    input:
+        ndjson="data/entrez.ndjson"
+    output:
+        metadata="data/genotypes.tsv",
+    log:
+        "logs/genotypes.txt",
+    shell:
+        r"""
+        ./scripts/extract-genotype --ndjson {input.ndjson} --output {output.metadata} 2> {log:q}
+        """
+
+
+rule merge_metadata:
+    input:
+        metadata="data/all_metadata.tsv",
+        genotypes="data/genotypes.tsv",
+    output:
+        metadata="data/all_metadata_incl_entrez.tsv", # TODO - these names need improvement, we should avoid 'all'
+    shell:
+        r"""
+        augur merge \
+            --metadata main={input.metadata} genotypes={input.genotypes} \
+            --metadata-id-columns accession \
+            --no-source-columns \
+            --output-metadata {output.metadata}
+        """
+
 
 rule subset_metadata:
     input:
-        metadata="data/all_metadata.tsv",
+        metadata="data/all_metadata_incl_entrez.tsv",
     output:
         subset_metadata="results/metadata.tsv",
     params:

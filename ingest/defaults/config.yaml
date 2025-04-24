@@ -3,6 +3,8 @@
 # taxon for `rubella`
 ncbi_taxon_id: "11041"
 
+entrez_term: "\"Rubella virus\"[porgn:__txid11041]"
+
 # The list of NCBI Datasets fields to include from NCBI Datasets output
 # These need to be the "mnemonics" of the NCBI Datasets fields, see docs for full list of fields
 # https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/command-line/dataformat/tsv/dataformat_tsv_virus-genome/#fields
@@ -129,3 +131,4 @@ curate:
     - authors
     - institution
     - url
+    - genotype_metadata
