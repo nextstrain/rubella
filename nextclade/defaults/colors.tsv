@@ -1,1 +1,84 @@
-# genotypes assigned by augur clades
+country	Israel	#5E1D9D
+country	Yemen	#541EA6
+country	Bahrain	#4D22AD
+country	Iran	#4929B4
+country	Oman	#462FBA
+country	Kazakhstan	#4236C1
+country	India	#403EC6
+country	Myanmar	#3F47C9
+country	Thailand	#3F4FCC
+country	Malaysia	#3E58CF
+country	Mongolia	#3F60D0
+country	China	#4068CF
+country	Vietnam	#4270CE
+country	Hong Kong	#4378CD
+country	Taiwan	#457FCB
+country	Philippines	#4886C7
+country	South Korea	#4A8CC3
+country	Japan	#4D92BF
+country	New Zealand	#5098BA
+country	Côte d'Ivoire	#539CB4
+country	Morocco	#57A0AE
+country	Ghana	#5AA5A8
+country	Algeria	#5EA9A1
+country	Nigeria	#62AC9B
+country	Tunisia	#67AF94
+country	Cameroon	#6BB18D
+country	Central African Republic	#70B487
+country	Democratic Republic of the Congo	#75B680
+country	South Africa	#7BB77A
+country	Sudan	#80B974
+country	Uganda	#86BB6E
+country	Kenya	#8CBB69
+country	Ethiopia	#92BC64
+country	Portugal	#98BD5E
+country	Spain	#9EBE5A
+country	United Kingdom	#A4BE56
+country	France	#AABD52
+country	Netherlands	#B0BD4E
+country	Luxembourg	#B6BD4B
+country	Germany	#BCBB49
+country	Italy	#C2BA46
+country	Bosnia and Herzegovina	#C7B944
+country	Greece	#CCB742
+country	Romania	#D1B340
+country	Finland	#D5B03F
+country	Belarus	#DAAD3D
+country	Ukraine	#DDA93C
+country	Turkey	#E0A33B
+country	Russia	#E29E39
+country	Argentina	#E49838
+country	Chile	#E69137
+country	Brazil	#E68935
+country	Peru	#E68133
+country	Guyana	#E67932
+country	Panama	#E67030
+country	El Salvador	#E4662E
+country	Honduras	#E25B2C
+country	Belize	#E1512A
+country	Mexico	#DF4728
+country	Bahamas	#DE3D26
+country	USA	#DD3225
+country	Canada	#DB2823
+
+region	Africa	#447CCD
+region	Asia	#5EA9A1
+region	Oceania	#8ABB6A
+region	Europe	#BEBB48
+region	South America	#E29E39
+region	North America	#E2562B
+
+clade	2A	#4433BE
+clade	2B	#3E5ACF
+clade	2C	#457FCB
+clade	1a	#529AB6
+clade	1B	#64AD98
+clade	1C	#7BB77A
+clade	1D	#96BD60
+clade	1E	#B3BD4D
+clade	1F	#CDB642
+clade	1G	#DFA43B
+clade	1H	#E68434
+clade	1I	#E2582C
+clade	1J	#DB2823
+
