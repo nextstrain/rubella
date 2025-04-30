@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Parse ENTREZ records in NDJSON format and extracts the genotype
+Expects the NDJSON records (on STDIN) to have the GenBank data under the 'entrez'
+key. Write out the records on STDOUT with an additional 'genotype_metadata' key.
 """
 
 from augur.io.json import load_ndjson
-import argparse
+import json
 from collections.abc import Generator
 from collections import defaultdict
 import re
 from pprint import pp
-from sys import stderr
-from csv import DictWriter
+from sys import stderr, stdin, stdout
 
 def clean_up_genotype(genotype: str) -> str|None:
     if genotype.startswith("RV"):
@@ -72,38 +72,18 @@ def potential_fields(record: dict) -> Generator[str, None, None]:
     yield source_feature(record).get("title", "")
 
 
-def accession(record: dict) -> str:
-    return record['record']['accessions'][0]
-
-
 if __name__=="__main__":
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--ndjson', required=True, type=str)
-    parser.add_argument('--output', required=True, type=str, help='Output file (TSV)')
-    args = parser.parse_args()
-
-    with open(args.ndjson) as fh:
-        records = [r for r in load_ndjson(fh)]
-
     counts = {'records': 0, 'match': 0, 'observed_genotypes': defaultdict(int)}
-    output = []
-
-    for record in records:
+    for record in load_ndjson(stdin):
+        genbank = record['entrez']
+        accession = record['accession']
         counts["records"]+=1
-        try:
-            for field in potential_fields(record):
-                if genotype:=extract_genotype(field):
-                    counts['match']+=1
-                    counts['observed_genotypes'][genotype]+=1
-                    output.append({'accession': accession(record), 'genotype_metadata': genotype})
-                    raise StopIteration
-        except StopIteration:
-            pass
-
+        genotype = ""
+        for field in potential_fields(genbank):
+            if genotype:=extract_genotype(field):
+                counts['match']+=1
+                counts['observed_genotypes'][genotype]+=1
+                break
+        record['genotype_metadata'] = genotype
+        print(json.dumps(record), end="\n", file=stdout)
     pp(counts, stream=stderr)
-
-    with open(args.output, 'w', newline='') as fh:
-        tsv_writer = DictWriter(fh, list(output[0].keys()), delimiter='\t')
-        tsv_writer.writeheader()
-        for row in output:
-            tsv_writer.writerow(row)

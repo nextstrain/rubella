@@ -25,6 +25,6 @@ rule genbank_to_json:
     shell:
         r"""
         bio json {input.gb} \
-            | jq -c '.[]' \
+            | jq -c '.[] | {{accession: .record.accessions[0], entrez: .}}' \
             > {output.ndjson}
         """
