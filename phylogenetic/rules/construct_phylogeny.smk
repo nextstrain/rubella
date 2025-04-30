@@ -18,7 +18,7 @@ rule tree:
         augur tree \
             --alignment {input.alignment:q} \
             --output {output.tree:q}
-          2> {log:q}
+          2>&1 | tee {log:q}
         """
 
 
@@ -32,8 +32,7 @@ rule refine:
     input:
         tree="results/{build}/tree_raw.nwk",
         alignment="results/{build}/aligned_and_filtered.fasta",
-        #FIXME metadata = "data/metadata.tsv"
-        metadata="../ingest/results/metadata.tsv",
+        metadata="data/metadata.tsv",
     output:
         tree="results/{build}/tree.nwk",
         node_data="results/{build}/branch_lengths.json",
@@ -51,7 +50,7 @@ rule refine:
         augur refine \
             --tree {input.tree:q} \
             --alignment {input.alignment:q} \
-            --root mid_point \
+            --root best \
             --metadata {input.metadata:q} \
             --output-tree {output.tree:q} \
             --output-node-data {output.node_data:q} \
@@ -62,5 +61,5 @@ rule refine:
             --date-inference {params.date_inference:q} \
             --clock-filter-iqd {params.clock_filter_iqd:q} \
             --stochastic-resolve \
-          2> {log:q}
+          2>&1 | tee {log:q}
         """

@@ -3,16 +3,17 @@ builds:
   - "E1"
 strain_id_field: "accession"
 files:
+  auspice_config: "defaults/auspice_config.json"
   description: "defaults/description.md"
   genome:
-    auspice_config: "defaults/auspice_config_genome.json"
+    auspice_title: "Real-time tracking of Rubella virus full genome evolution"
     clades: "defaults/clades_genome.tsv"
     exclude: "defaults/dropped_strains_genome.txt"
     genemap: "defaults/genemap_genome.gff"
     include: "defaults/include_strains_genome.txt"
     reference: "defaults/reference_genome.fasta"
   E1:
-    auspice_config: "defaults/auspice_config_E1.json"
+    auspice_title: "Real-time tracking of Rubella virus E1 gene evolution"
     clades: "defaults/clades_E1.tsv"
     exclude: "defaults/dropped_strains_E1.txt"
     genemap: "defaults/genemap_E1.gff"

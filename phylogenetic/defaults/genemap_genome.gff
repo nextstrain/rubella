@@ -1,9 +1,9 @@
-##sequence-region genome 1 9761
-NC_076948.1	feature	source	1	9761	.	+	.	gene=nuc
-NC_076948.1	feature	gene	41	6391	.	+	.	gene_name=NSP
-NC_076948.1	feature	gene	41	3943	.	+	.	gene_name=protease_p150
-NC_076948.1	feature	gene	3944	6388	.	+	.	gene_name=RNA_pol
-NC_076948.1	feature	gene	6511	9702	.	+	.	gene_name=SP
-NC_076948.1	feature	gene	6511	7410	.	+	.	gene_name=capsid
-NC_076948.1	feature	gene	7411	8256	.	+	.	gene_name=E2
-NC_076948.1	feature	gene	8257	9699	.	+	.	gene_name=E1
+##sequence-region genome 1 9762
+NC_001545.2	feature	source	1	9762	.	+	.	gene=nuc
+NC_001545.2	feature	gene	41	6391	.	+	.	gene_name=NSP
+NC_001545.2	feature	gene	41	3943	.	+	.	gene_name=protease_p150
+NC_001545.2	feature	gene	3944	6388	.	+	.	gene_name=RNA_pol
+NC_001545.2	feature	gene	6512	9703	.	+	.	gene_name=SP
+NC_001545.2	feature	gene	6512	7411	.	+	.	gene_name=capsid
+NC_001545.2	feature	gene	7412	8257	.	+	.	gene_name=E2
+NC_001545.2	feature	gene	8258	9700	.	+	.	gene_name=E1

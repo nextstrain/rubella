@@ -79,8 +79,7 @@ rule traits:
     """Inferring ancestral traits for {params.columns!s}"""
     input:
         tree="results/{build}/tree.nwk",
-        #FIXME metadata = "data/metadata.tsv",
-        metadata="../ingest/results/metadata.tsv",
+        metadata="data/metadata.tsv",
     output:
         node_data="results/{build}/traits.json",
     params:
@@ -99,5 +98,5 @@ rule traits:
             --metadata-id-columns {params.strain_id:q} \
             --columns {params.columns} \
             --confidence \
-          2> {log:q}
+          2>&1 | tee {log:q}
         """
