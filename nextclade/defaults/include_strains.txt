@@ -1,0 +1,115 @@
+# From FIXME WHO REFERENCE HERE
+# 1a(VAC)
+AF188704  # 2013 WHO             # monophyletic 1a vax group 1
+JF727653  # 2013 WHO             # monophyletic 1a vax group 4
+# L78917    # 2007 WHO             # monophyletic 1a vax group 4
+M30776    # 2013 WHO             # monophyletic 1a vax group 1
+
+# 1a
+# AB047329  # Seregin et al, 2011  # monophyletic 1a vax group 3 (colors as 1a)
+AB047330  # 2013 WHO             # monophyletic 1a vax group 3 (colors as 1a)
+# AB222608  # Seregin et al, 2011  # monophyletic 1a vax group 1
+# AB222609  # Seregin et al, 2011  # monophyletic 1a vax group 3 (colors as 1a)
+# AF435865  # Seregin et al, 2011  # monophyletic 1a vax group 2
+# AF435866  # Seregin et al, 2011  # monophyletic 1a vax group 2
+# FJ211587  # Seregin et al, 2011  # monophyletic 1a vax group 4
+# X14871    # Seregin et al, 2011  # monophyletic 1a vax group 4
+
+# 1B -- monophyletic but no unique mutations on branch, only C531T homoplasy. G525A is unique 2 forks back
+AY968207  # 2013 WHO
+AY968208  # 2013 WHO
+AY968209  # 2013 WHO
+# DQ085339  # Seregin et al, 2011
+# OM735620  # GenBank
+# OM735621  # GenBank
+# OM735622  # GenBank
+# OM735623  # GenBank
+
+# 1C
+AY968211  # 2013 WHO
+AY968212  # 2013 WHO
+AY968217  # 2013 WHO
+# DQ085341  # Seregin et al, 2011
+# OM735624  # GenBank
+# OM735625  # GenBank
+
+# 1D
+AY968214  # 2013 WHO
+AY968216  # 2013 WHO
+# OM735630  # GenBank
+# OM735631  # GenBank
+
+# 1E
+AY968210  # 2013 WHO
+AY968221  # 2013 WHO
+# DQ085343  # Seregin et al, 2011
+# EF421978  # Seregin et al, 2011
+# JX477651  # Chen et al, 2024
+# JX477652  # Chen et al, 2024
+# KC866357  # Chen et al, 2024
+# KJ175228  # Chen et al, 2024
+# KU234545  # Chen et al, 2024
+# PP070543  # Chen et al, 2024
+# PP084100  # Chen et al, 2024
+
+# 1F
+AY968213  # 2013 WHO
+AY968215  # 2013 WHO
+# JQ624625  # GenBank
+# JQ624624  # GenBank
+
+# 1G
+AM258945  # 2013 WHO
+# DQ388280  # Seregin et al, 2011
+EF588970  # 2013 WHO
+EF588978  # 2013 WHO
+# EF588979  # Seregin et al, 2011
+# JX477654  # Chen et al, 2024
+# JX477655  # Chen et al, 2024
+# JX477656  # Chen et al, 2024
+# KY494426  # Chen et al, 2024
+# MF490286  # Chen et al, 2024
+# MF490288  # Chen et al, 2024
+# PP070544  # Chen et al, 2024
+
+# 1H
+AM258953  # 2013 WHO
+# DQ454161  # 2007 WHO, 1g in GenBank
+# EF421977  # Seregin et al, 2011
+HG326276  # 2013 WHO
+
+# 1I
+# AY161352  # 2007 WHO
+AY161360  # 2013 WHO
+AF039122  # 2013 WHO
+
+# 1J - with the one 1D->1J exception, looks good
+# AB238919  # 2007 WHO
+AB285129  # 2013 WHO
+AB285130  # 2013 WHO
+# AY968206  # 2005 WHO  ## NOTE: gets called as 1J; is 1D in WHO
+# EF602117  # 2007 WHO
+# JN575762  # Chen et al, 2024
+# JX477653  # Chen et al, 2024
+# KM051413  # Chen et al, 2024
+# KT382315  # Chen et al, 2024
+
+# 2A
+AY258322  # 2013 WHO
+AY258323  # 2013 WHO
+# KC759166  # GenBank
+# OM735684  # GenBank
+
+# 2B
+AY968218  # 2013 WHO
+AY968219  # 2013 WHO
+AY968220  # 2013 WHO
+# DQ085338  # Seregin et al, 2011
+# DQ085342  # Seregin et al, 2011
+
+# 2C
+DQ085340  # 2013 WHO
+DQ388279  # 2013 WHO
+# EF649769  # GenBank
+# EF649770  # GenBank
+# EF649771  # GenBank

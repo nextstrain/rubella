@@ -3,6 +3,13 @@ ingest/benchmarks
 ingest/data
 ingest/logs
 ingest/results
+nextclade/auspice
+nextclade/benchmarks
+nextclade/data
+nextclade/dataset
+nextclade/logs
+nextclade/results
+nextclade/test_output
 phylogenetic/auspice
 phylogenetic/benchmarks
 phylogenetic/data
