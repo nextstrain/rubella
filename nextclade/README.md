@@ -32,3 +32,13 @@ If you want to use data from a local ingest run, just copy the data over:
 ```sh
 cp -r ../ingest/results data
 ```
+
+## Testing the dataset locally
+
+You can test the dataset locally by serving it, e.g. with `npx serve`:
+
+```sh
+npx serve ./dataset --cors
+```
+
+And then navigating to the following URL in your browser: <https://clades.nextstrain.org/?dataset-url=http://localhost:3000>
