@@ -16,7 +16,7 @@ rule tree:
         r"""
         augur tree \
             --alignment {input.alignment} \
-            --output {output.tree}
+            --output {output.tree} \
           &> {log:q}
         """
 
@@ -44,6 +44,6 @@ rule refine:
             --metadata-id-columns {params.strain_id:q} \
             --output-tree {output.tree:q} \
             --output-node-data {output.node_data:q} \
-            --root mid_point
+            --root mid_point \
           &> {log:q}
         """
