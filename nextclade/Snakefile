@@ -15,7 +15,6 @@ include: "rules/assemble_dataset.smk"
 rule clean:
     params:
         targets = [
-            ".snakemake",
             "auspice",
             "benchmarks",
             "data",
