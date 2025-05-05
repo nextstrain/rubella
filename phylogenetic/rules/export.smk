@@ -92,6 +92,6 @@ rule tip_frequencies:
             --wide-bandwidth {params.wide_bandwidth:q} \
             --proportion-wide {params.proportion_wide:q} \
             --pivot-interval {params.pivot_interval:q} \
-            --output {output.tip_freq:q}
+            --output {output.tip_freq:q} \
           2>&1 | tee {log:q}
         """

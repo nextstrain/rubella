@@ -17,7 +17,7 @@ rule tree:
         r"""
         augur tree \
             --alignment {input.alignment:q} \
-            --output {output.tree:q}
+            --output {output.tree:q} \
           2>&1 | tee {log:q}
         """
 
