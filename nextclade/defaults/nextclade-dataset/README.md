@@ -37,4 +37,3 @@ This dataset supports:
 
 Read more about Nextclade datasets in the Nextclade documentation:
 <https://docs.nextstrain.org/projects/nextclade/en/stable/user/datasets.html>
-
