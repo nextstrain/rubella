@@ -8,6 +8,20 @@ If you have another data source or private data that needs to be
 formatted for the phylogenetic workflow, then you can use a similar
 workflow to curate your own data.
 
+## Running the workflow
+
+You can run the workflow with default parameters using the `nextstrain` cli:
+
+```sh
+nextstrain build .
+```
+
+or at your own risk using `snakemake` directly (if you've got all the typical Nextstrain workflow dependencies):
+
+```sh
+snakemake
+```
+
 ## Config
 
 The config directory contains all of the default configurations for
