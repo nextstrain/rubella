@@ -17,7 +17,7 @@ rule tree:
         augur tree \
             --alignment {input.alignment} \
             --output {output.tree} \
-          &> {log:q}
+          2>&1 | tee {log:q}
         """
 
 
@@ -45,5 +45,5 @@ rule refine:
             --output-tree {output.tree:q} \
             --output-node-data {output.node_data:q} \
             --root mid_point \
-          &> {log:q}
+          2>&1 | tee {log:q}
         """

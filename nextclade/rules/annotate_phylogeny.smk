@@ -24,7 +24,7 @@ rule ancestral:
             --output-node-data {output.node_data} \
             --inference {params.inference}  \
             --root-sequence {params.reference_fasta} \
-         &> {log:q}
+         2>&1 | tee {log:q}
         """
 
 
@@ -46,7 +46,7 @@ rule translate:
             --ancestral-sequences {input.node_data:q} \
             --reference-sequence {input.reference:q} \
             --output {output.node_data:q} \
-          &> {log:q}
+          2>&1 | tee {log:q}
         """
 
 
@@ -69,5 +69,5 @@ rule clades:
             --mutations {input.nt_muts} {input.aa_muts} \
             --clades {input.clade_defs:q} \
             --output {output.clades:q} \
-          &> {log:q}
+          2>&1 | tee {log:q}
         """

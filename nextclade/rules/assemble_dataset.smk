@@ -34,7 +34,7 @@ rule assemble_dataset:
           cp -v {input.readme:q} {output.readme:q}
           cp -v {input.changelog:q} {output.changelog:q}
           cp -v {input.sequences:q} {output.sequences:q}
-        ) &> {log:q}
+        ) 2>&1 | tee {log:q}
         """
 
 

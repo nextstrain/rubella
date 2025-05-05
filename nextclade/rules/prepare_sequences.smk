@@ -57,7 +57,7 @@ rule align_and_extract_E1:
             --min-length {params.min_length:q} \
             --silent \
             {input.sequences:q} \
-          &> {log:q}
+          2>&1 | tee {log:q}
         """
 
 
@@ -83,5 +83,5 @@ rule filter:
             --exclude-all \
             --include {input.include:q} \
             --output {output.sequences:q} \
-          &> {log:q}
+          2>&1 | tee {log:q}
         """
