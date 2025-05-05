@@ -25,5 +25,5 @@ rule clean:
         ]
     shell:
         """
-        rm -rfv {params.targets}
+        rm -rv {params.targets}
         """

@@ -21,7 +21,7 @@ rule clean:
             ]
     shell:
         """
-        rm -rfv {params.targets}
+        rm -rv {params.targets}
         """
 
 # Import custom rules provided via the config.
