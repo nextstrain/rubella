@@ -35,5 +35,5 @@ rule export:
             --auspice-config {input.auspice_config:q} \
             --include-root-sequence-inline \
             --output {output.auspice_json:q} \
-          &> {log:q}
+        2>&1 | tee {log:q}
         """
