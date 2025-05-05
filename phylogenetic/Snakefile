@@ -14,7 +14,6 @@ include: "rules/export.smk"
 rule clean:
     params:
         targets = [
-            ".snakemake",
             "auspice",
             "data",
             "logs",
