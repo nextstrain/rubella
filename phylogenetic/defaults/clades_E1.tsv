@@ -1,60 +1,50 @@
 clade	gene	site	alt
-1a	nuc	94	G
-1a	nuc	540	A
-1a	nuc	576	G
+1a	nuc	210	T
 
+1B	clade	1a
+1B	nuc	48	G
 1B	nuc	531	T
-1B	nuc	525	A
 
-1C	nuc	525	T
-1C	nuc	609	C
-1C	nuc	738	C
-1C	nuc	951	T
+1C	clade	1a
+1C	nuc	138	C
+1C	nuc	480	C
+1C	nuc	714	C
 
-1D	nuc	72	G
-1D	nuc	522	A
-1D	nuc	570	C
-1D	nuc	1009	A
-1D	nuc	1056	T
-1D	nuc	1092	C
+1D	clade	1a
+1D	nuc	714	C
+1D	nuc	998	T
 
-1E	nuc	45	G
-1E	nuc	411	T
-1E	nuc	975	A
+1E	clade	1a
+1E	nuc	360	G
 1E	nuc	984	C
 
+1F	clade	1a
 1F	nuc	183	T
-1F	nuc	1050	T
-1F	nuc	1290	A
-1F	nuc	1395	C
 
+1G	clade	1a
 1G	nuc	321	T
+1G	nuc	48	G
 
-1H	nuc	132	A
-1H	nuc	186	A
-1H	nuc	381	T
+1H	clade	1a
+1H	nuc	411	G
+1H	nuc	48	G
 
+1I	clade	1a
+1I	nuc	1170	T
+1I	nuc	48	G
 1I	nuc	756	A
 
+1J	clade	1a
+1J	nuc	774	T
 1J	nuc	999	G
 
-2A	nuc	30	G
-2A	nuc	189	A
-2A	nuc	309	T
-2A	nuc	384	A
-2A	nuc	498	G
-2A	nuc	594	T
-2A	nuc	771	C
-2A	nuc	993	C
-2A	nuc	1000	T
-2A	nuc	1095	T
-2A	nuc	1182	A
-2A	nuc	1230	A
-2A	nuc	1257	A
+2	nuc	210	G
 
-2B	nuc	297	G
+2A	clade	2
+2A	nuc	72	C
 
-2C	nuc	120	C
-2C	nuc	297	A
-2C	nuc	771	T
-2C	nuc	1367	C
+2B	clade	2
+2B	nuc	498	G
+
+2C	clade	2
+2C	nuc	169	A
