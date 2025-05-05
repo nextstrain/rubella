@@ -14,7 +14,6 @@ include: "rules/curate.smk"
 rule clean:
     params:
         targets = [
-            ".snakemake",
             "benchmarks",
             "data",
             "logs",
