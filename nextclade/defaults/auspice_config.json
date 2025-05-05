@@ -1,5 +1,5 @@
 {
-  "title": "Real-time tracking of rubella virus full genome virus evolution",
+  "title": "Rubella E1 gene Nextclade reference tree",
   "maintainers": [
     {
       "name": "John SJ Anderson",
@@ -21,6 +21,11 @@
       "type": "categorical"
     },
     {
+      "key": "date",
+      "title": "Collection Date",
+      "type": "temporal"
+    },
+    {
       "key": "region",
       "title": "Region",
       "type": "categorical"
@@ -28,6 +33,41 @@
     {
       "key": "country",
       "title": "Country",
+      "type": "categorical"
+    },
+    {
+      "key": "division",
+      "title": "Division",
+      "type": "categorical"
+    },
+    {
+      "key": "location",
+      "title": "Location",
+      "type": "categorical"
+    },
+    {
+      "key": "length",
+      "title": "Length",
+      "type": "continuous"
+    },
+    {
+      "key": "date_released",
+      "title": "Date Released",
+      "type": "temporal"
+    },
+    {
+      "key": "author",
+      "title": "Author",
+      "type": "categorical"
+    },
+    {
+      "key": "host",
+      "title": "Host",
+      "type": "categorical"
+    },
+    {
+      "key": "institution",
+      "title": "Institution",
       "type": "categorical"
     }
   ],
