@@ -9,6 +9,7 @@ clade	gene	site	alt
 1C	nuc	138	C
 1C	nuc	480	C
 1C	nuc	714	C
+1C	nuc	1044	G
 
 1D	clade	1a
 1D	nuc	714	C
@@ -21,15 +22,12 @@ clade	gene	site	alt
 1F	clade	1a
 1F	nuc	183	T
 
-1G	clade	1a
 1G	nuc	321	T
 1G	nuc	48	G
 
-1H	clade	1a
 1H	nuc	411	G
 1H	nuc	48	G
 
-1I	clade	1a
 1I	nuc	1170	T
 1I	nuc	48	G
 1I	nuc	756	A
