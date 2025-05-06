@@ -17,7 +17,9 @@ rule tree:
         r"""
         augur tree \
             --alignment {input.alignment:q} \
-            --output {output.tree:q}
+            --output {output.tree:q} \
+            --nthreads auto \
+            --tree-builder-args "-n 10 --ninit 10 --epsilon 0.05 -T AUTO --redo" \
           2>&1 | tee {log:q}
         """
 

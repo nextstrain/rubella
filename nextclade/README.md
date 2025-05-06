@@ -23,3 +23,22 @@ FIXME CITE WHO PAPER HERE.
 * If any changes are needed to the clade-defining mutations, add
   changes to `defaults/clades.tsv` and re-run the workflow
 * Repeat as needed
+
+## Using local ingest data
+
+By default, this workflow pulls starting sequences and metadata from Nextstrain's AWS s3 bucket.
+If you want to use data from a local ingest run, just copy the data over:
+
+```sh
+cp -r ../ingest/results data
+```
+
+## Testing the dataset locally
+
+You can test the dataset locally by serving it, e.g. with `npx serve`:
+
+```sh
+npx serve ./dataset --cors
+```
+
+And then navigating to the following URL in your browser: <https://clades.nextstrain.org/?dataset-url=http://localhost:3000>

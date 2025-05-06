@@ -14,7 +14,6 @@ include: "rules/export.smk"
 rule clean:
     params:
         targets = [
-            ".snakemake",
             "auspice",
             "data",
             "logs",
@@ -22,7 +21,7 @@ rule clean:
             ]
     shell:
         """
-        rm -rfv {params.targets}
+        rm -rv {params.targets}
         """
 
 # Import custom rules provided via the config.

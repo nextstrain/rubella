@@ -25,21 +25,21 @@ filter:
     min_length: 7000
     sequences_per_group: 20
   E1:
-    min_length: 700
-    sequences_per_group: 200
+    min_length: 500
+    sequences_per_group: 500
 refine:
   coalescent: "opt"
   date_inference: "marginal"
-  clock_filter_iqd: 4
+  clock_filter_iqd: 10
 ancestral:
   inference: "joint"
 traits:
   columns: "region"
 tip_frequencies:
-  min_date: "2010-01-01"
+  min_date: "1970-01-01"
   # 0.083 = 1 / 12 (one month)
-  narrow_bandwidth: 0.083
+  narrow_bandwidth: 1
   # 0.250 = 3 / 12 (three months)
-  wide_bandwidth: 0.250
-  proportion_wide: 0
+  wide_bandwidth: 5
+  proportion_wide: 0.1
   pivot_interval: 1
