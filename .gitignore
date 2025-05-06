@@ -38,3 +38,6 @@ Icon?
 ehthumbs.db
 Thumbs.db
 *~
+
+# local emacs config
+.dir-locals.el
