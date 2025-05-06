@@ -53,9 +53,36 @@ def format_field_map(field_map: dict[str, str]) -> str:
     return " ".join([f'"{key}"="{value}"' for key, value in field_map.items()])
 
 
+rule merge_datasets_entrez:
+    input:
+        datasets="data/ncbi.ndjson",
+        entrez="data/entrez.ndjson",
+    output:
+        combined="data/metadata.ndjson",
+    run:
+        # This is an experimental implementation - we can fix it when/if we
+        # commit to this approach
+        from augur.io.json import load_ndjson
+        import json
+        fho = open(output.combined, 'w')
+        counts = {'total_ncbi_records': 0, 'total_entrez_records': 0, 'ncbi_records_with_entrez_matches': 0}
+        with open(input.entrez) as fh:
+            entrez = {r['accession']: r['entrez'] for r in load_ndjson(fh)}
+            counts['total_entrez_records'] = len(entrez.keys())
+        with open(input.datasets) as fh:
+            for r in load_ndjson(fh):
+                counts['total_ncbi_records'] += 1
+                if r['accession'] in entrez:
+                    r['entrez'] = entrez[r['accession']]
+                    counts['ncbi_records_with_entrez_matches'] += 1
+                fho.write(json.dumps(r)+"\n")
+        fho.close()
+        for k,v in counts.items():
+            print(f"{k.replace('_', ' ')}: {v}")
+
 rule curate:
     input:
-        sequences_ndjson="data/ncbi.ndjson",
+        sequences_ndjson="data/metadata.ndjson",
         all_geolocation_rules="data/all-geolocation-rules.tsv",
         annotations=config["curate"]["annotations"],
     output:
@@ -105,6 +132,7 @@ rule curate:
                 --abbr-authors-field {params.abbr_authors_field:q} \
             | augur curate apply-geolocation-rules \
                 --geolocation-rules {input.all_geolocation_rules:q} \
+            | ./scripts/extract-genotype \
             | augur curate apply-record-annotations \
                 --annotations {input.annotations:q} \
                 --id-field {params.annotations_id:q} \
@@ -132,7 +160,6 @@ rule add_genbank_url:
           -e '"https://www.ncbi.nlm.nih.gov/nuccore/" + $accession' \
           {input.metadata:q} > {output.metadata:q} 2> {log:q}
         """
-
 
 rule subset_metadata:
     input:

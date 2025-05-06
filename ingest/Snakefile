@@ -10,6 +10,8 @@ rule all:
 
 include: "rules/fetch_from_ncbi.smk"
 include: "rules/curate.smk"
+include: "rules/entrez.smk"
+
 
 rule clean:
     params:
