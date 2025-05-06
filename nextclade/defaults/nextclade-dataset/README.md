@@ -13,15 +13,13 @@
 This dataset assigns clades to rubella virus samples based on strain
 and genotype information from FIXME WHO REFERENCES HERE
 
-FIXME These two papers, collectively, define 7 distinct yellow fever virus
-genotypes based on a 670 nucleotide region of the yellow fever virus
-genome, (bases 641-1310), called the prM-E region. This region
-comprises the 3' end of the pre-membrane protein (prM) gene, the
-entire membrane protein (M) gene, and the 5' end of the envelope
-protein (E) gene.
+This paper defines 13 distinct rubella virus genotypes based on a 739
+nucleotide region of the rubella virus genome, (bases 8258-9700),
+comprising a portion of the E1 gene, which encodes one of the two
+spike proteins.
 
 This dataset can be used to assign genotypes to any sequence that
-includes at least 500 bp of the E1 region, including whole genome
+includes at least 700 bp of the E1 region, including whole genome
 sequences. Sequence data beyond the E1 region will be reported as an
 insertion in the Nextclade output.
 

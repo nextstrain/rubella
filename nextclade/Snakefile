@@ -1,10 +1,12 @@
 configfile: "defaults/config.yaml"
 
+
 rule all:
     input:
-        auspice_json = config["files"]["auspice_json"],
-        nextclade_dataset = "dataset/tree.json",
-#        test_dataset = "test_output",
+        auspice_json=config["files"]["auspice_json"],
+        nextclade_dataset="dataset/tree.json",
+        test_dataset="test_output",
+
 
 include: "rules/prepare_sequences.smk"
 include: "rules/construct_phylogeny.smk"
@@ -12,9 +14,10 @@ include: "rules/annotate_phylogeny.smk"
 include: "rules/export.smk"
 include: "rules/assemble_dataset.smk"
 
+
 rule clean:
     params:
-        targets = [
+        targets=[
             ".snakemake",
             "auspice",
             "benchmarks",
@@ -23,7 +26,7 @@ rule clean:
             "logs",
             "results",
             "test_output",
-        ]
+        ],
     shell:
         """
         rm -rfv {params.targets}
