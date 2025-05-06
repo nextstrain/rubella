@@ -57,7 +57,7 @@ rule filter_genome:
             --metadata-id-columns {params.strain_id:q} \
             --exclude {input.exclude:q} \
             --include {input.include:q} \
-            --output {output.sequences:q} \
+            --output-sequences {output.sequences:q} \
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group:q} \
             --min-length {params.min_length:q} \
@@ -131,7 +131,7 @@ rule filter_E1:
             --metadata {input.metadata:q} \
             --exclude {input.exclude:q} \
             --include {input.include:q} \
-            --output {output.sequences:q} \
+            --output-sequences {output.sequences:q} \
             --metadata-id-columns {params.strain_id:q} \
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group:q} \

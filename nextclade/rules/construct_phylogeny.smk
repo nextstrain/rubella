@@ -44,6 +44,6 @@ rule refine:
             --metadata-id-columns {params.strain_id:q} \
             --output-tree {output.tree:q} \
             --output-node-data {output.node_data:q} \
-            --root mid_point \
+            --root best \
           2>&1 | tee {log:q}
         """

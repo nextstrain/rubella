@@ -82,6 +82,6 @@ rule filter:
             --metadata-id-columns {params.strain_id:q} \
             --exclude-all \
             --include {input.include:q} \
-            --output {output.sequences:q} \
+            --output-sequences {output.sequences:q} \
           2>&1 | tee {log:q}
         """
