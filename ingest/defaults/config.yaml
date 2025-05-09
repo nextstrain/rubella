@@ -12,8 +12,6 @@ entrez_search_term: "txid11041[Primary Organism]"
 # Note: the "accession" field MUST be provided to match with the sequences
 ncbi_datasets_fields:
   - accession
-  - sourcedb
-  - sra-accs
   - isolate-lineage
   - geo-region
   - geo-location
@@ -21,12 +19,10 @@ ncbi_datasets_fields:
   - release-date
   - update-date
   - length
-  - host-name
-  - isolate-lineage-source
-  - biosample-acc
   - submitter-names
   - submitter-affiliation
-  - submitter-country
+  - is-lab-host
+  - is-vaccine-strain
 
 # Config parameters related to the curate pipeline
 curate:
@@ -44,8 +40,6 @@ curate:
   field_map:
     accession: accession
     accession_version: accession_version
-    sourcedb: database
-    sra-accs: sra_accessions
     isolate-lineage: strain
     geo-region: region
     geo-location: location
@@ -53,12 +47,10 @@ curate:
     release-date: date_released
     update-date: date_updated
     length: length
-    host-name: host
-    isolate-lineage-source: sample_type
-    biosample-acc: biosample_accessions
     submitter-names: full_authors
     submitter-affiliation: institution
-    submitter-country: submitter_country
+    is-lab-host: is_lab_host
+    is-vaccine-strain: is_vaccine_strain
   # Standardized strain name regex
   # Currently accepts any characters because we do not have a clear standard for strain names across pathogens
   strain_regex: "^.+$"
@@ -124,10 +116,8 @@ curate:
     - division
     - location
     - length
-    - host
     - date_released
     - date_updated
-    - sra_accessions
     - full_authors
     - authors
     - institution
