@@ -111,7 +111,7 @@ rule format_ncbi_datasets_ndjson:
             --fasta {input.ncbi_dataset_sequences:q} \
             --seq-id-column accession_version \
             --seq-field sequence \
-            --unmatched-reporting warn \
-            --duplicate-reporting warn \
+            --unmatched-reporting error_all \
+            --duplicate-reporting error_all \
           > {output.ndjson:q} 2> {log:q}
         """
