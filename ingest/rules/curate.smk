@@ -34,7 +34,7 @@ rule concat_geolocation_rules:
         general_geolocation_rules="data/general-geolocation-rules.tsv",
         local_geolocation_rules=config["curate"]["local_geolocation_rules"],
     output:
-        all_geolocation_rules="data/all-geolocation-rules.tsv",
+        geolocation_rules="data/geolocation-rules.tsv",
     log:
         "logs/concat_geolocation_rules.txt",
     benchmark:
@@ -42,7 +42,7 @@ rule concat_geolocation_rules:
     shell:
         r"""
         cat {input.general_geolocation_rules:q} {input.local_geolocation_rules:q} \
-          > {output.all_geolocation_rules:q} 2> {log:q}
+          > {output.geolocation_rules:q} 2> {log:q}
         """
 
 
@@ -56,10 +56,10 @@ def format_field_map(field_map: dict[str, str]) -> str:
 rule curate:
     input:
         sequences_ndjson="data/ncbi.ndjson",
-        all_geolocation_rules="data/all-geolocation-rules.tsv",
+        geolocation_rules="data/geolocation-rules.tsv",
         annotations=config["curate"]["annotations"],
     output:
-        metadata=temp("data/all_metadata_intermediate.tsv"),
+        metadata=temp("data/metadata_intermediate.tsv"),
         sequences="results/sequences.fasta",
     log:
         "logs/curate.txt",
@@ -99,7 +99,7 @@ rule curate:
                 --default-value {params.authors_default_value:q} \
                 --abbr-authors-field {params.abbr_authors_field:q} \
             | augur curate apply-geolocation-rules \
-                --geolocation-rules {input.all_geolocation_rules:q} \
+                --geolocation-rules {input.geolocation_rules:q} \
             | augur curate apply-record-annotations \
                 --annotations {input.annotations:q} \
                 --id-field {params.annotations_id:q} \
@@ -113,9 +113,9 @@ rule curate:
 
 rule add_genbank_url:
     input:
-        metadata="data/all_metadata_intermediate.tsv",
+        metadata="data/metadata_intermediate.tsv",
     output:
-        metadata="data/all_metadata.tsv",
+        metadata="data/metadata.tsv",
     log:
         "logs/add_genbank_url.txt",
     benchmark:
@@ -131,7 +131,7 @@ rule add_genbank_url:
 
 rule subset_metadata:
     input:
-        metadata="data/all_metadata.tsv",
+        metadata="data/metadata.tsv",
     output:
         subset_metadata="results/metadata.tsv",
     params:
