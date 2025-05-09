@@ -105,15 +105,17 @@ curate:
     - accession
     - accession_version
     - strain
-    - date
     - region
     - country
     - division
     - location
-    - length
+    - date
     - date_released
     - date_updated
+    - length
     - full_authors
     - authors
     - institution
+    - is_lab_host
+    - is_vaccine_strain
     - url
