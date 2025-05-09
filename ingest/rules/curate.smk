@@ -67,8 +67,6 @@ rule curate:
         "benchmarks/curate.txt"
     params:
         field_map=format_field_map(config["curate"]["field_map"]),
-        strain_regex=config["curate"]["strain_regex"],
-        strain_backup_fields=config["curate"]["strain_backup_fields"],
         date_fields=config["curate"]["date_fields"],
         expected_date_formats=config["curate"]["expected_date_formats"],
         genbank_location_field=config["curate"]["genbank_location_field"],
@@ -87,9 +85,6 @@ rule curate:
             | augur curate rename \
                 --field-map {params.field_map} \
             | augur curate normalize-strings \
-            | augur curate transform-strain-name \
-                --strain-regex {params.strain_regex:q} \
-                --backup-fields {params.strain_backup_fields:q} \
             | augur curate format-dates \
                 --date-fields {params.date_fields:q} \
                 --expected-date-formats {params.expected_date_formats:q} \
