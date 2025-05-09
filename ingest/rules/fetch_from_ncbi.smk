@@ -7,9 +7,30 @@ REQUIRED INPUTS:
 
 OUTPUTS:
 
-    ndjson = data/ncbi.ndjson
+    ndjson  = data/ncbi.ndjson
+    genbank = data/entrez.gb
 
 """
+
+
+rule fetch_ncbi_entrez_data:
+    params:
+        term=config["entrez_search_term"],
+    output:
+        genbank="data/entrez.gb",
+    # Allow retries in case of network errors
+    retries: 5
+    log:
+        "logs/fetch_ncbi_entrez_data.txt",
+    benchmark:
+        "benchmarks/fetch_ncbi_entrez_data.txt"
+    shell:
+        r"""
+        vendored/fetch-from-ncbi-entrez \
+            --term {params.term:q} \
+            --output {output.genbank:q}
+          2> {log:q}
+        """
 
 
 rule fetch_ncbi_dataset_package:
