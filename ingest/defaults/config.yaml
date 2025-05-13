@@ -15,7 +15,6 @@ ncbi_datasets_fields:
   - isolate-lineage
   - geo-region
   - geo-location
-  - isolate-collection-date
   - release-date
   - update-date
   - length
@@ -43,7 +42,6 @@ curate:
     isolate-lineage: strain
     geo-region: region
     geo-location: location
-    isolate-collection-date: date
     release-date: date_released
     update-date: date_updated
     length: length
@@ -59,7 +57,8 @@ curate:
   # provided above. These date formats should use directives expected
   # by datetime.
   # See https://docs.python.org/3.9/library/datetime.html#strftime-and-strptime-format-codes
-  expected_date_formats: ["%Y", "%Y-%m", "%Y-%m-%d", "%Y-%m-%dT%H:%M:%SZ"]
+  expected_date_formats:
+    ["%Y", "%Y-%m", "%Y-%m-%d", "%d-%b-%Y", "%b-%Y", "%Y-%m-%dT%H:%M:%SZ"]
   titlecase:
     # List of string fields to titlecase
     fields: ["region", "country", "division", "location"]
@@ -100,11 +99,14 @@ curate:
   output_id_field: "accession"
   # The field in the NDJSON record that contains the actual genomic sequence
   output_sequence_field: "sequence"
+  # The column name to use to join main metadata with GenBank genotype data
+  metadata_id_column: "accession"
   # The list of metadata columns to keep in the final output of the curation pipeline.
   metadata_columns:
     - accession
     - accession_version
     - strain
+    - genbank_genotype
     - region
     - country
     - division

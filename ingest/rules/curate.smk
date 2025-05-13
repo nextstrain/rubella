@@ -59,7 +59,7 @@ rule curate:
         geolocation_rules="data/geolocation-rules.tsv",
         annotations=config["curate"]["annotations"],
     output:
-        metadata=temp("data/metadata_intermediate.tsv"),
+        metadata=temp("data/metadata.tsv"),
         sequences="results/sequences.fasta",
     log:
         "logs/curate.txt",
@@ -87,7 +87,7 @@ rule curate:
             | augur curate normalize-strings \
             | augur curate format-dates \
                 --date-fields {params.date_fields:q} \
-                --expected-date-formats {params.expected_date_formats:q} \
+                --expected-date-formats {params.expected_date_formats} \
             | augur curate parse-genbank-location \
                 --location-field {params.genbank_location_field:q} \
             | augur curate titlecase \
@@ -111,24 +111,6 @@ rule curate:
         """
 
 
-rule add_genbank_url:
-    input:
-        metadata="data/metadata_intermediate.tsv",
-    output:
-        metadata="data/metadata.tsv",
-    log:
-        "logs/add_genbank_url.txt",
-    benchmark:
-        "benchmarks/add_genbank_url.txt"
-    shell:
-        r"""
-        csvtk mutate2 -t \
-          -n url \
-          -e '"https://www.ncbi.nlm.nih.gov/nuccore/" + $accession' \
-          {input.metadata:q} > {output.metadata:q} 2> {log:q}
-        """
-
-
 rule subset_metadata:
     input:
         metadata="data/metadata.tsv",
@@ -142,7 +124,9 @@ rule subset_metadata:
         "benchmarks/subset_metadata.txt"
     shell:
         r"""
-        csvtk cut -t -f {params.metadata_fields:q} \
+        csvtk cut -t \
+            -f {params.metadata_fields:q} \
             {input.metadata:q} \
-        > {output.subset_metadata:q} 2> {log:q}
+        > {output.subset_metadata:q} \
+        2> {log:q}
         """
