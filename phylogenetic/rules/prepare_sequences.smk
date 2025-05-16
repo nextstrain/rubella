@@ -71,6 +71,7 @@ rule align_genome:
         reference=config["files"]["genome"]["reference"],
     output:
         alignment="results/genome/aligned_and_filtered.fasta",
+    threads: workflow.cores * 0.5
     log:
         "logs/genome/align_genome.txt",
     benchmark:
@@ -80,6 +81,7 @@ rule align_genome:
         augur align \
             --sequences {input.sequences} \
             --output {output.alignment} \
+            --nthreads {threads} \
             --fill-gaps \
           2>&1 | tee {log:q}
         """
@@ -91,6 +93,7 @@ rule align_and_extract_E1:
         reference=config["files"]["E1"]["reference"],
     output:
         alignment="results/E1/aligned.fasta",
+    threads: workflow.cores * 0.5
     log:
         "logs/E1/filter_and_extract_E1.txt",
     benchmark:
@@ -101,6 +104,7 @@ rule align_and_extract_E1:
             --sequences {input.sequences:q} \
             --reference-sequence {input.reference:q} \
             --output {output.alignment:q} \
+            --nthreads {threads} \
             --fill-gaps \
             --remove-reference \
           2>&1 | tee {log:q}
