@@ -13,39 +13,6 @@ OUTPUTS:
 """
 
 
-rule fetch_general_geolocation_rules:
-    output:
-        general_geolocation_rules="data/general-geolocation-rules.tsv",
-    params:
-        geolocation_rules_url=config["curate"]["geolocation_rules_url"],
-    log:
-        "logs/fetch_general_geolocation_rules.txt",
-    benchmark:
-        "benchmarks/fetch_general_geolocation_rules.txt"
-    shell:
-        r"""
-        curl {params.geolocation_rules_url:q} > {output.general_geolocation_rules:q} \
-          2> {log:q}
-        """
-
-
-rule concat_geolocation_rules:
-    input:
-        general_geolocation_rules="data/general-geolocation-rules.tsv",
-        local_geolocation_rules=config["curate"]["local_geolocation_rules"],
-    output:
-        geolocation_rules="data/geolocation-rules.tsv",
-    log:
-        "logs/concat_geolocation_rules.txt",
-    benchmark:
-        "benchmarks/concat_geolocation_rules.txt"
-    shell:
-        r"""
-        cat {input.general_geolocation_rules:q} {input.local_geolocation_rules:q} \
-          > {output.geolocation_rules:q} 2> {log:q}
-        """
-
-
 def format_field_map(field_map: dict[str, str]) -> str:
     """
     Format dict to `"key1"="value1" "key2"="value2"...` for use in shell commands.
@@ -56,7 +23,7 @@ def format_field_map(field_map: dict[str, str]) -> str:
 rule curate:
     input:
         sequences_ndjson="data/ncbi.ndjson",
-        geolocation_rules="data/geolocation-rules.tsv",
+        local_geolocation_rules=config["curate"]["local_geolocation_rules"],
         annotations=config["curate"]["annotations"],
     output:
         metadata=temp("data/metadata.tsv"),
@@ -99,7 +66,7 @@ rule curate:
                 --default-value {params.authors_default_value:q} \
                 --abbr-authors-field {params.abbr_authors_field:q} \
             | augur curate apply-geolocation-rules \
-                --geolocation-rules {input.geolocation_rules:q} \
+                --geolocation-rules {input.local_geolocation_rules:q} \
             | augur curate apply-record-annotations \
                 --annotations {input.annotations:q} \
                 --id-field {params.annotations_id:q} \
