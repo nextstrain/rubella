@@ -30,7 +30,6 @@ rule export:
         traits="results/{build}/traits.json",
         nt_muts="results/{build}/nt_muts.json",
         aa_muts="results/{build}/aa_muts.json",
-        clades="results/{build}/clades.json",
         colors="data/colors.tsv",
         auspice_config=config["files"]["auspice_config"],
         description=config["files"]["description"],
@@ -48,7 +47,7 @@ rule export:
         augur export v2 \
             --tree {input.tree:q} \
             --metadata {input.metadata:q} \
-            --node-data {input.branch_lengths:q} {input.traits:q} {input.nt_muts:q} {input.aa_muts:q} {input.clades:q} \
+            --node-data {input.branch_lengths:q} {input.traits:q} {input.nt_muts:q} {input.aa_muts:q} \
             --colors {input.colors:q} \
             --auspice-config {input.auspice_config:q} \
             --description {input.description:q} \

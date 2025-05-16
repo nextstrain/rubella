@@ -9,6 +9,7 @@ rule tree:
         alignment="results/{build}/aligned_and_filtered.fasta",
     output:
         tree="results/{build}/tree_raw.nwk",
+    threads: workflow.cores * 0.5
     log:
         "logs/{build}/tree.txt",
     benchmark:
@@ -17,7 +18,8 @@ rule tree:
         r"""
         augur tree \
             --alignment {input.alignment:q} \
-            --output {output.tree:q}
+            --output {output.tree:q} \
+            --nthreads {threads} \
           2>&1 | tee {log:q}
         """
 
@@ -37,10 +39,12 @@ rule refine:
         tree="results/{build}/tree.nwk",
         node_data="results/{build}/branch_lengths.json",
     params:
+        root=lambda w: "best" if w.build == "genome" else "mid_point",
         strain_id=config["strain_id_field"],
         coalescent=config["refine"]["coalescent"],
         date_inference=config["refine"]["date_inference"],
         clock_filter_iqd=config["refine"]["clock_filter_iqd"],
+        timetree=lambda w: "--timetree" if w.build == "genome" else "",
     log:
         "logs/{build}/refine.txt",
     benchmark:
@@ -50,12 +54,12 @@ rule refine:
         augur refine \
             --tree {input.tree:q} \
             --alignment {input.alignment:q} \
-            --root best \
+            --root {params.root} \
             --metadata {input.metadata:q} \
             --output-tree {output.tree:q} \
             --output-node-data {output.node_data:q} \
             --metadata-id-columns {params.strain_id:q} \
-            --timetree \
+            {params.timetree} \
             --coalescent {params.coalescent:q} \
             --date-confidence \
             --date-inference {params.date_inference:q} \
