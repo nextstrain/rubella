@@ -9,6 +9,7 @@ rule tree:
         alignment="results/{build}/aligned_and_filtered.fasta",
     output:
         tree="results/{build}/tree_raw.nwk",
+    threads: workflow.cores * 0.5
     log:
         "logs/{build}/tree.txt",
     benchmark:
@@ -17,7 +18,8 @@ rule tree:
         r"""
         augur tree \
             --alignment {input.alignment:q} \
-            --output {output.tree:q}
+            --output {output.tree:q} \
+            --nthreads {threads} \
           2>&1 | tee {log:q}
         """
 
