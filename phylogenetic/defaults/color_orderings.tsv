@@ -224,3 +224,33 @@ region	South America
 region	North America
 
 ################
+
+clade	1a
+clade	1B
+clade	1C
+clade	1D
+clade	1E
+clade	1F
+clade	1G
+clade	1H
+clade	1I
+clade	1J
+clade	2A
+clade	2B
+clade	2C
+
+################
+
+genbank_genotype	1a
+genbank_genotype	1B
+genbank_genotype	1C
+genbank_genotype	1D
+genbank_genotype	1E
+genbank_genotype	1F
+genbank_genotype	1G
+genbank_genotype	1H
+genbank_genotype	1I
+genbank_genotype	1J
+genbank_genotype	2A
+genbank_genotype	2B
+genbank_genotype	2C
