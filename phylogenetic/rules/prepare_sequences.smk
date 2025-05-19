@@ -34,7 +34,7 @@ rule decompress:
 
 rule filter_genome:
     input:
-        exclude=config["files"]["genome"]["exclude"],
+        exclude=config["files"]["exclude"],
         include=config["files"]["genome"]["include"],
         metadata="data/metadata.tsv",
         sequences="data/sequences.fasta",
@@ -111,7 +111,7 @@ rule filter_E1:
     input:
         sequences="results/E1/aligned.fasta",
         metadata="data/metadata.tsv",
-        exclude=config["files"]["E1"]["exclude"],
+        exclude=config["files"]["exclude"],
         include=config["files"]["E1"]["include"],
     output:
         sequences="results/E1/aligned_and_filtered.fasta",
