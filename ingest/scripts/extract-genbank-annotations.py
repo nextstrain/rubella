@@ -93,6 +93,7 @@ def main():
     tsv_writer.writerow(
         [
             "accession",
+            "strain",
             "date",
             "genbank_genotype",
         ]
@@ -108,6 +109,7 @@ def main():
                 tsv_writer.writerow(
                     [
                         accession,
+                        results["strain"],
                         _determine_best_date(results),
                         results["genotype"],
                     ]
@@ -225,7 +227,7 @@ def _parse_date(date):
     """
     # case #1: actually follows WHO spec: two digit epiweek, followed
     # by dot, followed by two digit year
-    match = re.search(r"^([0-9]{1,2})\.([0-9]{2})$", date)
+    match = re.search(r"^([0-9]{1,2})\.([0-9]{2})", date)
     if match:
         return {
             "epiweek": match.group(1),
@@ -239,7 +241,7 @@ def _parse_date(date):
 
     # case #3: if there are only two digits, maybe with a leading `.`
     # or maybe not, we assume it's a year
-    match = re.search(r"^.?([0-9]{2})$", date)
+    match = re.search(r"^.?([0-9]{2})", date)
     if match:
         return {"epiweek": "", "epiyear": str(_normalize_year(match.group(1)))}
 
@@ -275,6 +277,7 @@ def _parse_source_feature(qualifiers):
     cannot be extracted, the dict will have empty string values.
     """
     results = {
+        "strain": "",
         "collection_date": "",
         "epiweek": "",
         "epiyear": "",
@@ -316,17 +319,30 @@ def _parse_strain_name(name, results):
     extract epiweek, epiyear, and genotype from the strain name, and
     update the provided results dict accordingly.
     """
-    if re.match(r"^RV[is]/", name):
-        parts = name.split("/", 3)[1:]
+    clean_name = name.replace("CRS", "").replace("CRI", "")
 
+    if re.match(r"^RV[is]/", clean_name):
+        results["strain"] = name
+
+        location = ""
+        date = ""
+        genotype = ""
+
+        parts = clean_name.split("/", 3)[1:]
         if len(parts) > 2:
-            location, date, rest = parts
+            location, date, genotype = parts
+        elif len(parts) == 2:
+            location, date_and_genotype = parts
+            if "[" in date_and_genotype:
+                date, genotype = date_and_genotype.split("[", 1)
+            else:
+                date = date_and_genotype
 
-            parsed_date = _parse_date(date)
-            results["epiweek"] = parsed_date["epiweek"]
-            results["epiyear"] = parsed_date["epiyear"]
+        parsed_date = _parse_date(date)
+        results["epiweek"] = parsed_date["epiweek"]
+        results["epiyear"] = parsed_date["epiyear"]
 
-            results["genotype"] = _parse_genotype(rest)
+        results["genotype"] = _parse_genotype(genotype)
 
 
 main()
