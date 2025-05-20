@@ -8,58 +8,28 @@ REQUIRED INPUTS:
 OUTPUTS:
 
     metadata    = results/metadata.tsv
-    seuqences   = results/sequences.fasta
+    sequences   = results/sequences.fasta
 
 """
 
 
-rule fetch_general_geolocation_rules:
-    output:
-        general_geolocation_rules="data/general-geolocation-rules.tsv",
-    params:
-        geolocation_rules_url=config["curate"]["geolocation_rules_url"],
-    log:
-        "logs/fetch_general_geolocation_rules.txt",
-    benchmark:
-        "benchmarks/fetch_general_geolocation_rules.txt"
-    shell:
-        r"""
-        curl {params.geolocation_rules_url:q} > {output.general_geolocation_rules:q} \
-          2> {log:q}
-        """
-
-
-rule concat_geolocation_rules:
-    input:
-        general_geolocation_rules="data/general-geolocation-rules.tsv",
-        local_geolocation_rules=config["curate"]["local_geolocation_rules"],
-    output:
-        all_geolocation_rules="data/all-geolocation-rules.tsv",
-    log:
-        "logs/concat_geolocation_rules.txt",
-    benchmark:
-        "benchmarks/concat_geolocation_rules.txt"
-    shell:
-        r"""
-        cat {input.general_geolocation_rules:q} {input.local_geolocation_rules:q} \
-          > {output.all_geolocation_rules:q} 2> {log:q}
-        """
-
-
-def format_field_map(field_map: dict[str, str]) -> str:
+def format_field_map(field_map: dict[str, str]) -> list[str]:
     """
-    Format dict to `"key1"="value1" "key2"="value2"...` for use in shell commands.
+    Format entries to the format expected by `augur curate --field-map`.
+
+    When used in a Snakemake shell block, the list is automatically expanded and
+    spaces are handled by quoted interpolation.
     """
-    return " ".join([f'"{key}"="{value}"' for key, value in field_map.items()])
+    return [f"{key}={value}" for key, value in field_map.items()]
 
 
 rule curate:
     input:
         sequences_ndjson="data/ncbi.ndjson",
-        all_geolocation_rules="data/all-geolocation-rules.tsv",
+        local_geolocation_rules=config["curate"]["local_geolocation_rules"],
         annotations=config["curate"]["annotations"],
     output:
-        metadata=temp("data/all_metadata_intermediate.tsv"),
+        metadata=temp("data/metadata.tsv"),
         sequences="results/sequences.fasta",
     log:
         "logs/curate.txt",
@@ -67,8 +37,6 @@ rule curate:
         "benchmarks/curate.txt"
     params:
         field_map=format_field_map(config["curate"]["field_map"]),
-        strain_regex=config["curate"]["strain_regex"],
-        strain_backup_fields=config["curate"]["strain_backup_fields"],
         date_fields=config["curate"]["date_fields"],
         expected_date_formats=config["curate"]["expected_date_formats"],
         genbank_location_field=config["curate"]["genbank_location_field"],
@@ -85,14 +53,11 @@ rule curate:
         r"""
         (cat {input.sequences_ndjson:q} \
             | augur curate rename \
-                --field-map {params.field_map} \
+                --field-map {params.field_map:q} \
             | augur curate normalize-strings \
-            | augur curate transform-strain-name \
-                --strain-regex {params.strain_regex:q} \
-                --backup-fields {params.strain_backup_fields:q} \
             | augur curate format-dates \
                 --date-fields {params.date_fields:q} \
-                --expected-date-formats {params.expected_date_formats:q} \
+                --expected-date-formats {params.expected_date_formats} \
             | augur curate parse-genbank-location \
                 --location-field {params.genbank_location_field:q} \
             | augur curate titlecase \
@@ -104,7 +69,7 @@ rule curate:
                 --default-value {params.authors_default_value:q} \
                 --abbr-authors-field {params.abbr_authors_field:q} \
             | augur curate apply-geolocation-rules \
-                --geolocation-rules {input.all_geolocation_rules:q} \
+                --geolocation-rules {input.local_geolocation_rules:q} \
             | augur curate apply-record-annotations \
                 --annotations {input.annotations:q} \
                 --id-field {params.annotations_id:q} \
@@ -116,27 +81,9 @@ rule curate:
         """
 
 
-rule add_genbank_url:
-    input:
-        metadata="data/all_metadata_intermediate.tsv",
-    output:
-        metadata="data/all_metadata.tsv",
-    log:
-        "logs/add_genbank_url.txt",
-    benchmark:
-        "benchmarks/add_genbank_url.txt"
-    shell:
-        r"""
-        csvtk mutate2 -t \
-          -n url \
-          -e '"https://www.ncbi.nlm.nih.gov/nuccore/" + $accession' \
-          {input.metadata:q} > {output.metadata:q} 2> {log:q}
-        """
-
-
 rule subset_metadata:
     input:
-        metadata="data/all_metadata.tsv",
+        metadata="data/metadata.tsv",
     output:
         subset_metadata="results/metadata.tsv",
     params:
@@ -147,7 +94,9 @@ rule subset_metadata:
         "benchmarks/subset_metadata.txt"
     shell:
         r"""
-        csvtk cut -t -f {params.metadata_fields:q} \
+        csvtk cut -t \
+            -f {params.metadata_fields:q} \
             {input.metadata:q} \
-        > {output.subset_metadata:q} 2> {log:q}
+        > {output.subset_metadata:q} \
+        2> {log:q}
         """

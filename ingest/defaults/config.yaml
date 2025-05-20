@@ -3,34 +3,28 @@
 # taxon for `rubella`
 ncbi_taxon_id: "11041"
 
+# entrez search term for `rubella`
+entrez_search_term: "txid11041[Primary Organism]"
+
 # The list of NCBI Datasets fields to include from NCBI Datasets output
 # These need to be the "mnemonics" of the NCBI Datasets fields, see docs for full list of fields
 # https://www.ncbi.nlm.nih.gov/datasets/docs/v2/reference-docs/command-line/dataformat/tsv/dataformat_tsv_virus-genome/#fields
 # Note: the "accession" field MUST be provided to match with the sequences
 ncbi_datasets_fields:
   - accession
-  - sourcedb
-  - sra-accs
   - isolate-lineage
   - geo-region
   - geo-location
-  - isolate-collection-date
   - release-date
   - update-date
   - length
-  - host-name
-  - isolate-lineage-source
-  - biosample-acc
   - submitter-names
   - submitter-affiliation
-  - submitter-country
+  - is-lab-host
+  - is-vaccine-strain
 
 # Config parameters related to the curate pipeline
 curate:
-  # URL pointed to public generalized geolocation rules.
-  # For the Nextstrain team, this is currently
-  # "https://raw.githubusercontent.com/nextstrain/ncov-ingest/master/source-data/gisaid_geoLocationRules.tsv".
-  geolocation_rules_url: "https://raw.githubusercontent.com/nextstrain/ncov-ingest/master/source-data/gisaid_geoLocationRules.tsv"
   # The path to the local geolocation rules within the pathogen repo
   local_geolocation_rules: "defaults/geolocation_rules.tsv"
   # List of field names to change where the key is the original field
@@ -41,26 +35,16 @@ curate:
   field_map:
     accession: accession
     accession_version: accession_version
-    sourcedb: database
-    sra-accs: sra_accessions
-    isolate-lineage: strain
+    isolate-lineage: isolate_lineage
     geo-region: region
     geo-location: location
-    isolate-collection-date: date
     release-date: date_released
     update-date: date_updated
     length: length
-    host-name: host
-    isolate-lineage-source: sample_type
-    biosample-acc: biosample_accessions
     submitter-names: full_authors
     submitter-affiliation: institution
-    submitter-country: submitter_country
-  # Standardized strain name regex
-  # Currently accepts any characters because we do not have a clear standard for strain names across pathogens
-  strain_regex: "^.+$"
-  # Back up strain name field to use if "strain" doesn"t match regex above
-  strain_backup_fields: ["accession"]
+    is-lab-host: is_lab_host
+    is-vaccine-strain: is_vaccine_strain
   # List of date fields to standardize to ISO format YYYY-MM-DD
   date_fields: ["date", "date_released", "date_updated"]
   # Field name storing `geo_loc_name` value
@@ -69,7 +53,8 @@ curate:
   # provided above. These date formats should use directives expected
   # by datetime.
   # See https://docs.python.org/3.9/library/datetime.html#strftime-and-strptime-format-codes
-  expected_date_formats: ["%Y", "%Y-%m", "%Y-%m-%d", "%Y-%m-%dT%H:%M:%SZ"]
+  expected_date_formats:
+    ["%Y", "%Y-%m", "%Y-%m-%d", "%d-%b-%Y", "%b-%Y", "%Y-%m-%dT%H:%M:%SZ"]
   titlecase:
     # List of string fields to titlecase
     fields: ["region", "country", "division", "location"]
@@ -110,22 +95,26 @@ curate:
   output_id_field: "accession"
   # The field in the NDJSON record that contains the actual genomic sequence
   output_sequence_field: "sequence"
+  # The column name to use to join main metadata with GenBank genotype data
+  metadata_id_column: "accession"
   # The list of metadata columns to keep in the final output of the curation pipeline.
   metadata_columns:
     - accession
     - accession_version
     - strain
-    - date
+    - isolate_lineage
+    - genbank_genotype
     - region
     - country
     - division
     - location
-    - length
-    - host
+    - date
     - date_released
     - date_updated
-    - sra_accessions
+    - length
     - full_authors
     - authors
     - institution
+    - is_lab_host
+    - is_vaccine_strain
     - url
