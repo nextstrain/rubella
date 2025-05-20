@@ -35,7 +35,7 @@ curate:
   field_map:
     accession: accession
     accession_version: accession_version
-    isolate-lineage: strain
+    isolate-lineage: isolate_lineage
     geo-region: region
     geo-location: location
     release-date: date_released
@@ -102,6 +102,7 @@ curate:
     - accession
     - accession_version
     - strain
+    - isolate_lineage
     - genbank_genotype
     - region
     - country
