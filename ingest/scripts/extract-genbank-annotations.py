@@ -11,6 +11,9 @@ Intended to be merged with other TSV-formatted data in subsequent
 import argparse
 import csv
 from datetime import date
+from dateutil import parser
+import os
+from pathlib import Path
 import re
 import sys
 
@@ -101,6 +104,7 @@ def main():
 
     for record in SeqIO.parse(args.genbank, "genbank"):
         accession = record.annotations["accessions"][0]
+        deposit_year = parser.parse(record.annotations["date"]).year
 
         for f in record.features:
             if f.type == "source":
@@ -110,13 +114,17 @@ def main():
                     [
                         accession,
                         results["strain"],
-                        _determine_best_date(results),
+                        _determine_best_date(
+                            results,
+                            accession,
+                            deposit_year,
+                        ),
                         results["genotype"],
                     ]
                 )
 
 
-def _determine_best_date(results):
+def _determine_best_date(results, accession, deposit_year):
     """
     Extract the best date from what is available in `collection_date` and
     the epi-date from the genotype, according to the following rules:
@@ -129,18 +137,40 @@ def _determine_best_date(results):
     * Otherwise, if the epi-date consists of only a year use that
     * Finally, return the empty string
 
+    The `deposit_year` argument is used to validate the epi-date, if it
+    is to be used — if the deposit year is earlier than the calculated
+    epi-year, an error will be thrown.
+
     Notes/context on epiweek calculations:
     https://bedfordlab.slack.com/archives/C01LCTT7JNN/p1718643444417379
     """
+    epiyear_error_msg = None
+    # strains that are known to have funky epi-dates or other issues, that are
+    # excluded from analysis during the phylogenetic build
+    known_funky_genotypes = _read_samples_excluded_from_phylogenetic_build()
+
+    # so we only have to check this once…
+    if results["epiyear"] and int(results["epiyear"]) > deposit_year:
+        if accession not in known_funky_genotypes:
+            epiyear_error_msg = (
+                f"parsed epi-year {results['epiyear']} > {deposit_year} "
+                + f"for strain {results['strain']}/{accession} — not possible!"
+            )
+
     if results["collection_date"]:
         # if we have a collection date and it's more than just a year, use that
         if len(results["collection_date"]) > 4:
             return results["collection_date"]
 
-        # otherwise if we have an epiweek and an epiyear, turn that
-        # into a date and use it
+        # otherwise if we have an epiweek and an epiyear, turn that into a date and use it
         elif results["epiweek"] and results["epiyear"] and int(results["epiweek"]) > 0:
-            return _determine_epidate(int(results["epiweek"]), int(results["epiyear"]))
+            if epiyear_error_msg is not None:
+                raise ValueError(epiyear_error_msg)
+
+            return _determine_epidate(
+                int(results["epiweek"]),
+                int(results["epiyear"]),
+            )
 
         # otherwise, use the collection date
         else:
@@ -149,11 +179,20 @@ def _determine_best_date(results):
     # if there's no collection date but we have epiweek and epiyear,
     # turn that into a date and use it
     elif results["epiweek"] and results["epiyear"] and int(results["epiweek"]) > 0:
-        return _determine_epidate(int(results["epiweek"]), int(results["epiyear"]))
+        if epiyear_error_msg is not None:
+            raise ValueError(epiyear_error_msg)
+
+        return _determine_epidate(
+            int(results["epiweek"]),
+            int(results["epiyear"]),
+        )
 
     # otherwise, if there's no collection date and only an epiyear,
     # use the epiyear
     elif results["epiyear"]:
+        if epiyear_error_msg is not None:
+            raise ValueError(epiyear_error_msg)
+
         return f"{results['epiyear']}-XX-XX"
 
     # …if we get here, we give up
@@ -343,6 +382,21 @@ def _parse_strain_name(name, results):
         results["epiyear"] = parsed_date["epiyear"]
 
         results["genotype"] = _parse_genotype(genotype)
+
+
+def _read_samples_excluded_from_phylogenetic_build():
+    dropped_samples_file = (
+        Path(os.path.dirname(os.path.realpath(__file__)))
+        / ".."
+        / ".."
+        / "phylogenetic"
+        / "defaults"
+        / "dropped_strains.txt"
+    )
+    with open(dropped_samples_file, "r") as dropped_fh:
+        dropped_samples = dropped_fh.read().splitlines()
+
+    return [line.split("#")[0].rstrip() for line in dropped_samples]
 
 
 main()
