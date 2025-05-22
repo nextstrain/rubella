@@ -6,7 +6,8 @@ and sequences.
 DATASET_NAME = config["nextclade"]["dataset_name"]
 
 
-# FIXME uncomment
+# FIXME uncomment once
+# https://github.com/nextstrain/nextclade_data/pull/302 is merged
 # rule get_nextclade_dataset:
 #     """Download Nextclade dataset"""
 #     output:
@@ -22,45 +23,13 @@ DATASET_NAME = config["nextclade"]["dataset_name"]
 #         """
 
 
-# FIXME remove
-# note: this is a temporary rule until the nextclade dataset is
-# finalized
-rule copy_nextclade_dataset:
-    input:
-        reference_fasta="../nextclade/dataset/reference.fasta",
-        tree="../nextclade/dataset/tree.json",
-        pathogen_json="../nextclade/dataset/pathogen.json",
-        sequences="../nextclade/dataset/sequences.fasta",
-        annotation="../nextclade/dataset/genome_annotation.gff3",
-        readme="../nextclade/dataset/README.md",
-        changelog="../nextclade/dataset/CHANGELOG.md",
-    output:
-        dataset=f"data/{DATASET_NAME}.zip",
-    log:
-        "logs/copy_nextclade_dataset.txt",
-    benchmark:
-        "benchmarks/copy_nextclade_dataset.txt"
-    shell:
-        r"""
-        (
-          cp -v {input.reference_fasta:q} data/
-          cp -v {input.tree:q} data/
-          cp -v {input.pathogen_json:q} data/
-          cp -v {input.annotation:q} data/
-          cp -v {input.readme:q} data/
-          cp -v {input.changelog:q} data/
-          cp -v {input.sequences:q} data/
-          zip -j {output.dataset} data/reference.fasta data/tree.json \
-              data/pathogen.json data/sequences.fasta \
-              data/genome_annotation.gff3 data/README.md \
-              data/CHANGELOG.md
-        )
-        """
-
-
 rule run_nextclade:
     input:
-        dataset=f"data/{DATASET_NAME}.zip",
+        # FIXME remove once
+        # https://github.com/nextstrain/nextclade_data/pull/302
+        # is merged
+        dataset="defaults/dataset.zip",
+        #dataset=f"data/{DATASET_NAME}.zip",
         sequences="results/sequences.fasta",
     output:
         nextclade="results/nextclade.tsv",
