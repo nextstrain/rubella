@@ -10,22 +10,26 @@ rule all:
 
 include: "rules/fetch_from_ncbi.smk"
 include: "rules/curate.smk"
+include: "rules/nextclade.smk"
+
 
 rule clean:
     params:
-        targets = [
+        targets=[
             ".snakemake",
             "benchmarks",
             "data",
             "logs",
             "results",
-            ]
+        ],
     shell:
         """
         rm -rfv {params.targets}
         """
 
+
 # Import custom rules provided via the config.
 if "custom_rules" in config:
-  for rule_file in config["custom_rules"]:
-    include: rule_file
+    for rule_file in config["custom_rules"]:
+
+        include: rule_file

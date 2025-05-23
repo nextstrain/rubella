@@ -118,3 +118,30 @@ curate:
     - is_lab_host
     - is_vaccine_strain
     - url
+nextclade:
+  dataset_name: "nextstrain/rubella/E1"
+  field_map:
+    seqName: "seqName"
+    clade: "clade"
+    coverage: "coverage"
+    totalMissing: "missing_data"
+    totalSubstitutions: "divergence"
+    totalNonACGTNs: "nonACGTN"
+    qc.overallStatus: "QC_overall"
+    qc.missingData.status: "QC_missing_data"
+    qc.mixedSites.status: "QC_mixed_sites"
+    qc.privateMutations.status: "QC_rare_mutations"
+    qc.snpClusters.status: "QC_snp_clusters"
+    qc.frameShifts.status: "QC_frame_shifts"
+    qc.stopCodons.status: "QC_stop_codons"
+    frameShifts: "frame_shifts"
+    privateNucMutations.reversionSubstitutions: "private_reversion_substitutions"
+    privateNucMutations.labeledSubstitutions: "private_labeled_substitutions"
+    privateNucMutations.unlabeledSubstitutions: "private_unlabeled_substitutions"
+    privateNucMutations.totalReversionSubstitutions: "private_total_reversion_substitutions"
+    privateNucMutations.totalLabeledSubstitutions: "private_total_labeled_substitutions"
+    privateNucMutations.totalUnlabeledSubstitutions: "private_total_unlabeled_substitutions"
+    privateNucMutations.totalPrivateSubstitutions: "private_total_private_substitutions"
+    qc.snpClusters.clusteredSNPs: "private_snp_clusters"
+    qc.snpClusters.totalSNPs: "private_total_snp_clusters"
+  id_field: "seqName"
