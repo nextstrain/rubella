@@ -18,13 +18,14 @@ rule ancestral:
         "benchmarks/ancestral.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         augur ancestral \
             --tree {input.tree} \
             --alignment {input.alignment} \
             --output-node-data {output.node_data} \
             --inference {params.inference}  \
-            --root-sequence {params.reference_fasta} \
-         &> {log:q}
+            --root-sequence {params.reference_fasta}
         """
 
 
@@ -41,12 +42,13 @@ rule translate:
         "benchmarks/translate.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         augur translate \
             --tree {input.tree:q} \
             --ancestral-sequences {input.node_data:q} \
             --reference-sequence {input.reference:q} \
-            --output {output.node_data:q} \
-          &> {log:q}
+            --output {output.node_data:q}
         """
 
 
@@ -64,10 +66,11 @@ rule clades:
         "benchmarks/clades.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         augur clades \
             --tree {input.tree:q} \
             --mutations {input.nt_muts} {input.aa_muts} \
             --clades {input.clade_defs:q} \
-            --output {output.clades:q} \
-          &> {log:q}
+            --output {output.clades:q}
         """
