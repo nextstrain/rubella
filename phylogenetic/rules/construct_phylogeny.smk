@@ -44,7 +44,6 @@ rule refine:
         coalescent=config["refine"]["coalescent"],
         date_inference=config["refine"]["date_inference"],
         clock_filter_iqd=config["refine"]["clock_filter_iqd"],
-        timetree=lambda w: "--timetree" if w.build == "genome" else "",
     log:
         "logs/{build}/refine.txt",
     benchmark:
@@ -59,7 +58,7 @@ rule refine:
             --output-tree {output.tree:q} \
             --output-node-data {output.node_data:q} \
             --metadata-id-columns {params.strain_id:q} \
-            {params.timetree} \
+            --timetree \
             --coalescent {params.coalescent:q} \
             --date-confidence \
             --date-inference {params.date_inference:q} \
