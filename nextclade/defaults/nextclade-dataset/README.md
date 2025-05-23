@@ -4,14 +4,15 @@
 | ----------------- | -----------------------------------------------------------------|
 | name              | Rubella virus E1 region                                          |
 | authors           | [Nextstrain](https://nextstrain.org)                             |
-| reference         | FIXME                                                       |
+| reference         | NC_001545.2                                                      |
 | workflow          | <https://github.com/nextstrain/rubella/tree/main/nextclade>      |
 | path              | `nextstrain/rubella/E1`                                          |
 
 ## Scope of this dataset
 
 This dataset assigns clades to rubella virus samples based on strain
-and genotype information from FIXME WHO REFERENCES HERE
+and genotype information from [Rubella virus nomenclature update:
+2013][].
 
 This paper defines 13 distinct rubella virus genotypes based on a 739
 nucleotide region of the rubella virus genome, (bases 8258-9700),
@@ -36,3 +37,4 @@ This dataset supports:
 Read more about Nextclade datasets in the Nextclade documentation:
 <https://docs.nextstrain.org/projects/nextclade/en/stable/user/datasets.html>
 
+[Rubella virus nomenclature update: 2013]: https://www.who.int/publications/i/item/WER8832
