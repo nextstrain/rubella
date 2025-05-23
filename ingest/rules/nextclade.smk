@@ -14,8 +14,14 @@ DATASET_NAME = config["nextclade"]["dataset_name"]
 #         dataset=f"data/nextclade_data/{DATASET_NAME}.zip",
 #     params:
 #         dataset_name=DATASET_NAME,
+#    log:
+#        "logs/get_nextclade_dataset.txt",
+#    benchmark:
+#        "benchmarks/get_nextclade_dataset.txt"
 #     shell:
 #         r"""
+#         exec &> >(tee {log:q})
+#
 #         nextclade3 dataset get \
 #             --name={params.dataset_name:q} \
 #             --output-zip={output.dataset} \
@@ -40,12 +46,13 @@ rule run_nextclade:
         "benchmarks/run_nextclade.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         nextclade3 run \
             {input.sequences} \
             --input-dataset {input.dataset} \
             --output-tsv {output.nextclade} \
-            --output-fasta {output.alignment} \
-          &> {log:q}
+            --output-fasta {output.alignment}
         """
 
 
@@ -66,13 +73,15 @@ rule nextclade_metadata:
         "benchmarks/nextclade_metadata.tsv"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         augur curate rename \
             --metadata {input.nextclade:q} \
             --id-column {params.nextclade_id_field:q} \
             --field-map {params.nextclade_field_map:q} \
             --output-metadata - \
           | csvtk cut --tabs --fields {params.nextclade_fields:q} \
-        > {output.nextclade_metadata:q} 2> {log:q}
+        > {output.nextclade_metadata:q}
         """
 
 
@@ -91,6 +100,8 @@ rule join_metadata_and_nextclade:
         "benchmarks/join_metadata_and_nextclade.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         augur merge \
             --metadata \
                 metadata={input.metadata:q} \
@@ -99,6 +110,5 @@ rule join_metadata_and_nextclade:
                 metadata={params.metadata_id_field:q} \
                 nextclade={params.nextclade_id_field:q} \
             --output-metadata {output.metadata:q} \
-            --no-source-columns \
-        &> {log:q}
+            --no-source-columns
         """
