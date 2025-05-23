@@ -11,8 +11,14 @@ rule download:
     params:
         sequences_url="https://data.nextstrain.org/files/workflows/rubella/sequences.fasta.zst",
         metadata_url="https://data.nextstrain.org/files/workflows/rubella/metadata.tsv.zst",
+    log:
+        "logs/download.txt",
+    benchmark:
+        "benchmarks/download.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         curl -fsSL --compressed {params.sequences_url:q} --output {output.sequences}
         curl -fsSL --compressed {params.metadata_url:q} --output {output.metadata}
         """
@@ -25,8 +31,14 @@ rule decompress:
     output:
         sequences="data/sequences.fasta",
         metadata="data/metadata.tsv",
+    log:
+        "logs/decocmpress.txt",
+    benchmark:
+        "benchmarks/decompress.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         zstd -d -c {input.sequences} > {output.sequences}
         zstd -d -c {input.metadata} > {output.metadata}
         """
@@ -48,7 +60,8 @@ rule align_and_extract_E1:
     threads: workflow.cores
     shell:
         r"""
-        touch {log:q} && \
+        exec &> >(tee {log:q})
+
         nextclade3 run \
             --jobs {threads:q} \
             --input-ref {input.reference:q} \
@@ -56,8 +69,7 @@ rule align_and_extract_E1:
             --min-seed-cover {params.min_seed_cover:q} \
             --min-length {params.min_length:q} \
             --silent \
-            {input.sequences:q} \
-          &> {log:q}
+            {input.sequences:q}
         """
 
 
@@ -76,12 +88,13 @@ rule filter:
         "benchmarks/filter.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         augur filter \
             --sequences {input.sequences:q} \
             --metadata {input.metadata:q} \
             --metadata-id-columns {params.strain_id:q} \
             --exclude-all \
             --include {input.include:q} \
-            --output-sequences {output.sequences:q} \
-          &> {log:q}
+            --output-sequences {output.sequences:q}
         """
