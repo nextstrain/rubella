@@ -2,7 +2,7 @@
 # https://www.who.int/publications/i/item/WER8832
 
 # 1a
-AB047330
+#AB047330
 AF188704
 JF727653
 M30776
@@ -58,3 +58,8 @@ AY968220
 # 2C
 DQ085340
 DQ388279
+
+# 1a(VAX) "emperical" clade
+KU958641 # vax derived
+MK787190 # vax derived
+OQ296622 # vax derived
