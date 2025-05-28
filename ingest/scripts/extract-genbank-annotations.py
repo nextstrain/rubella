@@ -99,6 +99,7 @@ def main():
             "strain",
             "date",
             "genbank_genotype",
+            "clade",
         ]
     )
 
@@ -120,6 +121,7 @@ def main():
                             deposit_year,
                         ),
                         results["genotype"],
+                        "",
                     ]
                 )
 
