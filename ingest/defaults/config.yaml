@@ -45,6 +45,7 @@ curate:
     submitter-affiliation: institution
     is-lab-host: is_lab_host
     is-vaccine-strain: is_vaccine_strain
+    clade: clade
   # List of date fields to standardize to ISO format YYYY-MM-DD
   date_fields: ["date", "date_released", "date_updated"]
   # Field name storing `geo_loc_name` value
@@ -118,6 +119,7 @@ curate:
     - is_lab_host
     - is_vaccine_strain
     - url
+    - clade
 nextclade:
   dataset_name: "nextstrain/rubella/E1"
   field_map:
