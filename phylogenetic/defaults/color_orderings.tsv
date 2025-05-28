@@ -225,7 +225,7 @@ region	North America
 
 ################
 
-clade	1a
+clade	1a(WHO)
 clade	1a(VAX)
 clade	1B
 clade	1C
@@ -243,6 +243,7 @@ clade	2C
 ################
 
 genbank_genotype	1a
+genbank_genotype	1a(WHO)
 genbank_genotype	1B
 genbank_genotype	1C
 genbank_genotype	1D
