@@ -34,6 +34,11 @@
       "key": "clade",
       "title": "Genotype (from Nextclade)",
       "type": "categorical"
+    },
+    {
+      "key": "who_reference",
+      "title": "WHO Reference Strain",
+      "type": "categorical"
     }
   ],
   "geo_resolutions": ["region", "country"],

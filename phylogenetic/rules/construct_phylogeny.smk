@@ -63,6 +63,7 @@ rule refine:
             --metadata-id-columns {params.strain_id:q} \
             --timetree \
             --coalescent {params.coalescent:q} \
+            --clock-rate 0.0006 \
             --date-confidence \
             --date-inference {params.date_inference:q} \
             --clock-filter-iqd {params.clock_filter_iqd:q} \
