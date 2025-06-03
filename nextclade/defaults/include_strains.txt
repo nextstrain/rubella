@@ -58,3 +58,10 @@ AY968220
 # 2C
 DQ085340
 DQ388279
+
+# 1a "emperical" clade; samples _not_ from WHO paper; based on a clade
+# observed in the whole genome tree, with three samples selected
+# randomly as representative samples
+KU958641 # vax derived
+MK787190 # vax derived
+OQ296622 # vax derived
