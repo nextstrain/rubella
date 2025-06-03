@@ -89,11 +89,13 @@ rule join_metadata_and_nextclade:
     input:
         metadata="data/subset_metadata.tsv",
         nextclade_metadata="results/nextclade_metadata.tsv",
+        override_annotations="defaults/override_annotations.tsv",
     output:
         metadata="results/metadata.tsv",
     params:
         metadata_id_field=config["curate"]["output_id_field"],
         nextclade_id_field=config["nextclade"]["id_field"],
+        override_id_field=config["curate"]["output_id_field"],
     log:
         "logs/join_metadata_and_nextclade.txt",
     benchmark:
@@ -106,9 +108,11 @@ rule join_metadata_and_nextclade:
             --metadata \
                 metadata={input.metadata:q} \
                 nextclade={input.nextclade_metadata:q} \
+                override={input.override_annotations:q} \
             --metadata-id-columns \
                 metadata={params.metadata_id_field:q} \
                 nextclade={params.nextclade_id_field:q} \
+                override={params.override_id_field:q} \
             --output-metadata {output.metadata:q} \
             --no-source-columns
         """
