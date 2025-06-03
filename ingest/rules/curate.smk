@@ -51,7 +51,9 @@ rule curate:
         sequence_field=config["curate"]["output_sequence_field"],
     shell:
         r"""
-        (cat {input.sequences_ndjson:q} \
+        exec &> >(tee {log:q})
+
+        cat {input.sequences_ndjson:q} \
             | augur curate rename \
                 --field-map {params.field_map:q} \
             | augur curate normalize-strings \
@@ -77,7 +79,6 @@ rule curate:
                 --output-fasta {output.sequences:q} \
                 --output-id-field {params.id_field:q} \
                 --output-seq-field {params.sequence_field:q}
-        ) 2> {log:q}
         """
 
 
@@ -94,9 +95,10 @@ rule subset_metadata:
         "benchmarks/subset_metadata.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         csvtk cut -t \
             -f {params.metadata_fields:q} \
             {input.metadata:q} \
-        > {output.subset_metadata:q} \
-        2> {log:q}
+          > {output.subset_metadata:q}
         """
