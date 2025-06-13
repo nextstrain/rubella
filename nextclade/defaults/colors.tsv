@@ -68,17 +68,17 @@ region	Europe	#BEBB48
 region	South America	#E29E39
 region	North America	#E2562B
 
-clade	2A	#4433BE
-clade	2B	#3E5ACF
-clade	2C	#457FCB
-clade	1a	#529AB6
-clade	1B	#64AD98
-clade	1C	#7BB77A
-clade	1D	#96BD60
-clade	1E	#B3BD4D
-clade	1F	#CDB642
-clade	1G	#DFA43B
-clade	1H	#E68434
-clade	1I	#E2582C
-clade	1J	#DB2823
+clade_membership	1a	#4433BE
+clade_membership	1B	#3E5ACF
+clade_membership	1C	#457FCB
+clade_membership	1D	#529AB6
+clade_membership	1E	#64AD98
+clade_membership	1F	#7BB77A
+clade_membership	1G	#96BD60
+clade_membership	1H	#B3BD4D
+clade_membership	1I	#CDB642
+clade_membership	1J	#DFA43B
+clade_membership	2A	#E68434
+clade_membership	2B	#E2582C
+clade_membership	2C	#DB2823
 
