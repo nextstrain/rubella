@@ -51,30 +51,6 @@ rule translate:
         """
 
 
-rule clades:
-    """Annotating clades"""
-    input:
-        tree="results/{build}/tree.nwk",
-        nt_muts="results/{build}/nt_muts.json",
-        aa_muts="results/{build}/aa_muts.json",
-        clade_defs=lambda w: config["files"][w.build]["clades"],
-    output:
-        clades="results/{build}/clades.json",
-    log:
-        "logs/{build}/clades.txt",
-    benchmark:
-        "benchmarks/{build}/clades.txt"
-    shell:
-        r"""
-        augur clades \
-          --tree {input.tree:q} \
-          --mutations {input.nt_muts:q} {input.aa_muts:q} \
-          --clades {input.clade_defs:q} \
-          --output {output.clades:q} \
-        2>&1 | tee {log:q}
-        """
-
-
 rule traits:
     """Inferring ancestral traits for {params.columns!s}"""
     input:

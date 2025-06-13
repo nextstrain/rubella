@@ -24,14 +24,24 @@
       "key": "country",
       "title": "Country",
       "type": "categorical"
+    },
+    {
+      "key": "genbank_genotype",
+      "title": "Genotype (from GenBank annotation)",
+      "type": "categorical"
+    },
+    {
+      "key": "clade",
+      "title": "Genotype (from Nextclade)",
+      "type": "categorical"
     }
   ],
   "geo_resolutions": ["region", "country"],
   "display_defaults": {
-    "color_by": "clade_membership",
+    "color_by": "clade",
     "map_triplicate": true
   },
-  "filters": ["clade_membership", "region", "country", "author"],
+  "filters": ["clade", "genbank_genotype", "region", "country", "author"],
   "panels": ["tree", "map", "entropy", "frequencies"],
   "metadata_columns": ["author"]
 }
