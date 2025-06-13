@@ -1,0 +1,8 @@
+AB047330
+AF188704
+JF727653
+# M30776 -- don't include in genome b/c only E1/E2 sequence
+AY258322
+AY258323
+DQ085340
+DQ388279
