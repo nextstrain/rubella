@@ -11,8 +11,14 @@ rule colors:
         metadata="data/metadata.tsv",
     output:
         colors="data/colors.tsv",
+    log:
+        "logs/colors.txt",
+    benchmark:
+        "benchmarks/colors.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         python3 scripts/assign-colors.py \
           --color-schemes {input.color_schemes:q} \
           --ordering {input.color_orderings:q} \
@@ -44,6 +50,8 @@ rule export:
         "benchmarks/{build}/export.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         augur export v2 \
             --tree {input.tree:q} \
             --metadata {input.metadata:q} \
@@ -54,8 +62,7 @@ rule export:
             --output {output.auspice_json:q} \
             --metadata-id-columns {params.strain_id:q} \
             --title {params.auspice_title:q} \
-            --include-root-sequence-inline \
-          2>&1 | tee {log:q}
+            --include-root-sequence-inline
         """
 
 
@@ -81,6 +88,8 @@ rule tip_frequencies:
         "benchmarks/{build}/tip_frequencies.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         augur frequencies \
             --method kde \
             --tree {input.tree:q} \
@@ -92,5 +101,4 @@ rule tip_frequencies:
             --proportion-wide {params.proportion_wide:q} \
             --pivot-interval {params.pivot_interval:q} \
             --output {output.tip_freq:q}
-          2>&1 | tee {log:q}
         """

@@ -26,15 +26,15 @@ rule assemble_dataset:
         "benchmarks/assemble_dataset.txt"
     shell:
         r"""
-        (
-          cp -v {input.reference_fasta:q} {output.reference_fasta:q}
-          cp -v {input.tree:q} {output.tree:q}
-          cp -v {input.pathogen_json:q} {output.pathogen_json:q}
-          cp -v {input.annotation:q} {output.annotation:q}
-          cp -v {input.readme:q} {output.readme:q}
-          cp -v {input.changelog:q} {output.changelog:q}
-          cp -v {input.sequences:q} {output.sequences:q}
-        ) &> {log:q}
+        exec &> >(tee {log:q})
+
+        cp -v {input.reference_fasta:q} {output.reference_fasta:q}
+        cp -v {input.tree:q} {output.tree:q}
+        cp -v {input.pathogen_json:q} {output.pathogen_json:q}
+        cp -v {input.annotation:q} {output.annotation:q}
+        cp -v {input.readme:q} {output.readme:q}
+        cp -v {input.changelog:q} {output.changelog:q}
+        cp -v {input.sequences:q} {output.sequences:q}
         """
 
 
@@ -55,10 +55,11 @@ rule test_dataset:
         "benchmarks/test_dataset.txt"
     shell:
         r"""
+        exec &> >(tee {log:q})
+
         nextclade run \
             --input-dataset {params.dataset_dir:q} \
             --output-all {output.outdir:q} \
             --silent \
-            {input.sequences:q} \
-          >& {log:q}
+            {input.sequences:q}
         """
