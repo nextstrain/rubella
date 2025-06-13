@@ -1,7 +1,8 @@
-# Phylogenetic workflow
+# Phylogenetic workflow for rubella virus
 
-This workflow uses metadata and sequences to produce one or multiple
-[Nextstrain datasets][] that can be visualized in Auspice.
+This workflow uses metadata and sequences to produce two
+[Nextstrain datasets][] that can be visualized in Auspice, one for the
+whole rubella genome, and one specific for the E1 gene.
 
 ## Data Requirements
 
