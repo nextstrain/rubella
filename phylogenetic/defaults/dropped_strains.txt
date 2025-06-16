@@ -1,4 +1,4 @@
-# JF727653  # off the clock -- but WHO 1a
+# JF727653  # off the clock -- but WHO 1A
 # JF727654  # off the clock
 FJ040181  # weirdly divergent, vaccine strain, only E2 sequence
 EU016200  # weird epi-date in strain name
