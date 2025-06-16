@@ -61,5 +61,5 @@ rule test_dataset:
             --input-dataset {params.dataset_dir:q} \
             --output-all {output.outdir:q} \
             --silent \
-            {input.sequences:q}
+          {input.sequences:q}
         """
