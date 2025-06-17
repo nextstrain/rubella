@@ -40,7 +40,6 @@ rule refine:
         tree="results/{build}/tree.nwk",
         node_data="results/{build}/branch_lengths.json",
     params:
-        root=lambda w: "best" if w.build == "genome" else "mid_point",
         strain_id=config["strain_id_field"],
         coalescent=config["refine"]["coalescent"],
         date_inference=config["refine"]["date_inference"],
@@ -56,7 +55,7 @@ rule refine:
         augur refine \
             --tree {input.tree:q} \
             --alignment {input.alignment:q} \
-            --root {params.root} \
+            --root mid_point \
             --metadata {input.metadata:q} \
             --output-tree {output.tree:q} \
             --output-node-data {output.node_data:q} \
