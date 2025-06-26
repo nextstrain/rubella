@@ -299,10 +299,7 @@ def _parse_genotype(maybe_genotype):
 
     if match:
         genotype = match.group(1)
-        if re.search(r"1[aA]", genotype):
-            return genotype.lower()
-        else:
-            return genotype.upper()
+        return genotype.upper()
 
     return ""
 

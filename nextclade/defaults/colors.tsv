@@ -68,19 +68,17 @@ region	Europe	#BEBB48
 region	South America	#E29E39
 region	North America	#E2562B
 
-clade_membership	1a	#492AB5
-clade_membership	1a(VAX)	#3F4CCB
-clade_membership	1B	#4271CE
-clade_membership	1C	#4C8FC0
-clade_membership	1D	#5AA5A8
-clade_membership	1E	#6DB38A
-clade_membership	1F	#85BA6F
-clade_membership	1G	#A0BE59
-clade_membership	1H	#BBBC49
-clade_membership	1I	#D2B340
-clade_membership	1J	#E19F3A
-clade_membership	2A	#E68033
-clade_membership	2B	#E2562B
+clade_membership	1A	#4433BE
+clade_membership	1B	#3E5ACF
+clade_membership	1C	#457FCB
+clade_membership	1D	#529AB6
+clade_membership	1E	#64AD98
+clade_membership	1F	#7BB77A
+clade_membership	1G	#96BD60
+clade_membership	1H	#B3BD4D
+clade_membership	1I	#CDB642
+clade_membership	1J	#DFA43B
+clade_membership	2A	#E68434
+clade_membership	2B	#E2582C
 clade_membership	2C	#DB2823
-
 
