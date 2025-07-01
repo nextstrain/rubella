@@ -46,5 +46,5 @@ to nextstrain.org must be provided.
 [augur align]: https://docs.nextstrain.org/projects/augur/en/stable/usage/cli/align.html
 [IQTREE-2]: http://www.iqtree.org/
 [TreeTime]: https://github.com/neherlab/treetime
-[Nextclade dataset]: FIXME
+[Nextclade dataset]: https://nextstrain.org/fetch/data.clades.nextstrain.org/v3/nextstrain/rubella/E1/2025-07-01--21-21-21Z/tree.json
 [CC-BY-4.0 license]: https://creativecommons.org/licenses/by/4.0/
