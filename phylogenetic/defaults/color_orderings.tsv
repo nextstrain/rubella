@@ -225,7 +225,7 @@ region	North America
 
 ################
 
-clade	1a
+clade	1A
 clade	1B
 clade	1C
 clade	1D
@@ -241,7 +241,7 @@ clade	2C
 
 ################
 
-genbank_genotype	1a
+genbank_genotype	1A
 genbank_genotype	1B
 genbank_genotype	1C
 genbank_genotype	1D
@@ -257,7 +257,7 @@ genbank_genotype	2C
 
 ################
 
-who_reference	1a
+who_reference	1A
 who_reference	1B
 who_reference	1C
 who_reference	1D

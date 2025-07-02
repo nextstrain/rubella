@@ -1,9 +1,9 @@
 clade	gene	site	alt
-# 1a	nuc	234	A
-# 1a	nuc	489	T
-# 1a(VAX)	nuc	71	T # including this excludes JF727653
-1a	nuc	628	C
-# 1a	nuc	678	T ## this is the one that hits _very_ basal, bad choice
+# 1A	nuc	234	A
+# 1A	nuc	489	T
+# 1A(VAX)	nuc	71	T # including this excludes JF727653
+1A	nuc	628	C
+# 1A	nuc	678	T ## this is the one that hits _very_ basal, bad choice
 
 1B	nuc	531	T
 1B	nuc	525	A
@@ -26,7 +26,9 @@ clade	gene	site	alt
 1F	nuc	1290	A
 1F	nuc	1395	C
 
-1G	nuc	1143	T
+1G	nuc	9	C
+1G	nuc	168	C
+1G	nuc	231	C
 
 1H	nuc	132	A
 1H	nuc	186	A

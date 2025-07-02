@@ -1,65 +1,96 @@
-# Genotypes extracted from Table 1,
+# WHO Genotypes extracted from Table 1,
 # https://www.who.int/publications/i/item/WER8832
 
-# 1a
-#AB047330
-AF188704
-JF727653
-M30776
+# 1A
+#AB047330 # WHO genotype, unused because it distorts the tree
+AF188704 # WHO genotype
+JF727653 # WHO genotype
+JX524186 # selected as mid-basal sample relative to WHO samples
+M30776 # WHO genotype
 
 # 1B
-AY968207
-AY968208
-AY968209
+AY968207 # WHO genotype
+AY968208 # WHO genotype
+AY968209 # WHO genotype
+JX524184 # selected as more basal relative to WHO samples
+OM735621 # selected as more basal relative to WHO samples
+OM735623 # selected as mid-basal relative to WHO samples
 
 # 1C
-AY968211
-AY968212
-AY968217
+AY968211 # WHO genotype
+AY968212 # WHO genotype
+AY968217 # WHO genotype
+JN635283 # selected as more basal relative to WHO samples
+OM735624 # selected as semi-basal relative to WHO samples
 
 # 1D
-AY968214
-AY968216
+AB072384 # selected as less basal relative to WHO samples
+AB233426 # selected as mid-basal relative to WHO samples
+AY968214 # WHO genotype
+AY968216 # WHO genotype
 
 # 1E
-AY968210
-AY968221
+AY968210 # WHO genotype
+AY968221 # WHO genotype
+DQ085331 # selected as more basal relative to WHO samples
+JX679263 # selected as more basal relative to WHO samples
+OM735633 # selected as more basal relative to WHO samples
 
 # 1F
-AY968213
-AY968215
+AY326351 # selected as more basal relative to WHO samples
+AY968213 # WHO genotype
+AY968215 # WHO genotype
+FJ875035 # selected as more basal relative to WHO samples
+OM735681 # selected as more basal relative to WHO samples
 
 # 1G
-AM258945
-EF588970
-EF588978
+AM258945 # WHO genotype
+EF588970 # WHO genotype
+EF588978 # WHO genotype
+FN546969 # selected as more basal relative to WHO samples
+KC962558 # selected as mid-basal relative to WHO samples
 
 # 1H
-AM258953
-HG326276
+AM258953 # WHO genotype
+DQ897934 # selected as more basal relative to WHO samples
+EF199893 # selected as more basal relative to WHO samples
+EF199889 # selected as more basal relative to WHO samples
+HG326276 # WHO genotype
 
 # 1I
-AY161360
-AF039122
+AF039122 # WHO genotype
+AF039132 # selected as more basal relative to WHO samples
+AY161351 # selected as more basal relative to WHO samples
+AY161359 # selected as mid-basal relative to WHO samples
+AY161360 # WHO genotype
 
 # 1J
-AB285129
-AB285130
+AB285129 # WHO genotype
+AB285130 # WHO genotype
+JQ900444 # selected as more basal relative to WHO samples
+JQ900445 # selected as more basal relative to WHO samples
+KU601207 # selected as more basal relative to WHO samples
 
 # 2A
-AY258322
-AY258323
+AY258322 # WHO genotype
+AY258323 # WHO genotype
+FJ875030 # cladistic with AY258323
+OM735684 # cladistic with AY258322
 
 # 2B
-AY968218
-AY968219
-AY968220
+AY968218 # WHO genotype
+AY968219 # WHO genotype
+AY968220 # WHO genotype
+JN635293 # selected as mid-basal relative to WHO samples
+KC288129 # selected as mid-basal relative to WHO samples
 
 # 2C
-DQ085340
-DQ388279
+AY247016 # selected as more basal relative to WHO samples
+AY247017 # selected as more basal relative to WHO samples
+DQ085340 # WHO genotype
+DQ388279 # WHO genotype
 
-# 1a "emperical" clade; samples _not_ from WHO paper; based on a clade
+# 1A "emperical" clade; samples _not_ from WHO paper; based on a clade
 # observed in the whole genome tree, with three samples selected
 # randomly as representative samples
 KU958641 # vax derived

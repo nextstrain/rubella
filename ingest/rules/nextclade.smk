@@ -6,36 +6,30 @@ and sequences.
 DATASET_NAME = config["nextclade"]["dataset_name"]
 
 
-# FIXME uncomment once
-# https://github.com/nextstrain/nextclade_data/pull/302 is merged
-# rule get_nextclade_dataset:
-#     """Download Nextclade dataset"""
-#     output:
-#         dataset=f"data/nextclade_data/{DATASET_NAME}.zip",
-#     params:
-#         dataset_name=DATASET_NAME,
-#    log:
-#        "logs/get_nextclade_dataset.txt",
-#    benchmark:
-#        "benchmarks/get_nextclade_dataset.txt"
-#     shell:
-#         r"""
-#         exec &> >(tee {log:q})
-#
-#         nextclade3 dataset get \
-#             --name={params.dataset_name:q} \
-#             --output-zip={output.dataset} \
-#             --verbose
-#         """
+rule get_nextclade_dataset:
+    """Download Nextclade dataset"""
+    output:
+        dataset=f"data/nextclade_data/{DATASET_NAME}.zip",
+    params:
+        dataset_name=DATASET_NAME,
+    log:
+        "logs/get_nextclade_dataset.txt",
+    benchmark:
+        "benchmarks/get_nextclade_dataset.txt"
+    shell:
+        r"""
+        exec &> >(tee {log:q})
+
+        nextclade3 dataset get \
+            --name={params.dataset_name:q} \
+            --output-zip={output.dataset} \
+            --verbose
+        """
 
 
 rule run_nextclade:
     input:
-        # FIXME remove once
-        # https://github.com/nextstrain/nextclade_data/pull/302
-        # is merged
-        dataset="defaults/dataset.zip",
-        #dataset=f"data/{DATASET_NAME}.zip",
+        dataset=f"data/nextclade_data/{DATASET_NAME}.zip",
         sequences="results/sequences.fasta",
     output:
         nextclade="results/nextclade.tsv",
