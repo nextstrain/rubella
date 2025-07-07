@@ -22,17 +22,15 @@ on:
   workflow_dispatch:
     inputs:
       image:
-        description: 'Specific container image to use for ingest workflow (will override the default of "nextstrain build")'
+        description: 'Specific container image to use for phylogenetic workflow (will override the default of "nextstrain build")'
         required: false
         type: string
 
 jobs:
-  # temporarily disabled while dataset is finalized
   check-new-data:
-    if:
-      ${{ false }}
-      # github.event_name == 'workflow_run' &&
-      # github.event.workflow_run.conclusion == 'success'
+    if: |
+      github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     outputs:
       cache-hit: ${{ steps.check-cache.outputs.cache-hit }}
@@ -95,7 +93,7 @@ jobs:
         nextstrain build \
           phylogenetic \
             deploy_all \
-            --configfile build-configs/nextstrain-automation/config.yaml \
+            --configfile build-configs/nextstrain-automation/config.yaml
       # Specifying artifact name to differentiate ingest build outputs from
       # the phylogenetic build outputs
       artifact-name: phylogenetic-build-output
