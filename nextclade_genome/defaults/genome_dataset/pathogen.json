@@ -17,8 +17,8 @@
   "defaultCds": "N",
   "attributes": {
     "name": "Rubella",
-    "reference name": "Ichinose-B95a",
-    "reference accession": "NC_001498 "
+    "reference name": "RVi/Bismarck.ND.USA/23.08/2B",
+    "reference accession": "NC_076948"
   },
   "alignmentParams":{
     "retryReverseComplement": true,

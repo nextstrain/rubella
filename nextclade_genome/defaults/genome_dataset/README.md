@@ -2,21 +2,18 @@
 
 | Key               | Value                                                                                                                                                            |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name           | Measles complete genome
+| name           | Rubella complete genome
 | authors           | [Nextstrain](https://nextstrain.org)                                            |
-| reference         | NC_001498.1                                                                                                                        |
-| workflow          | https://github.com/nextstrain/measles/tree/main/nextclade                                                                                     |
-| path              | `nextstrain/measles/genome/WHO-2012`                                                                                                                                  |
+| reference         | NC_076948                                                                                                                        |
+| workflow          | https://github.com/nextstrain/rubella/tree/main/nextclade_genome                                                                                     |
+| path              | `nextstrain/rubella/genome`                                                                                                                                  |
 
 
 ## Scope of this dataset
 
-This dataset assigns genotypes to measles samples based on [criteria outlined by the WHO](https://www.who.int/publications/i/item/WER8709).
-The WHO has defined 24 measles genotypes based on N gene and H gene sequences from 28 reference strains. For new measles samples, genotypes can be assigned based on genetic similarity to the reference strains in the "N450" region (a 450 bp region of the N gene).
+This dataset assigns genotypes to rubella samples based on guidance by the WHO (["Rubella virus nomenclature update: 2013"](https://www.who.int/publications/i/item/WER8832)).
 
-The reference tree used in this dataset includes sequences for the 28 reference strains, along with (nearly) complete genomes of other representative strains for most genotypes.
-This dataset can be used to assign genotypes to any sequence that includes at least 400 bp of the N450 region, including whole genome sequences.
-In addition, this dataset implements simple quality control metrics based to the amount of missing sequence, the number of ambiguous nucleotides, frameshifts or stop codons, and clusters of mutations relative to sequences in the reference tree.
+The reference tree used in this dataset includes uses a complete rubella virus genome, whole the nomenclature by the WHO is typically defined based on the E1 segment.
 
 ## Features
 
