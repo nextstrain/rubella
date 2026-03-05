@@ -17,7 +17,7 @@
   "alignmentParams": {
     "minSeedCover": 0.01,
     "terminalBandwidth": 100,
-    "excessBandwith": 18,
+    "excessBandwidth": 18,
     "minMatchLength": 20
   },
   "qc": {
