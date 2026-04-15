@@ -95,7 +95,7 @@ rule fetch_ncbi_entrez_data:
         r"""
         exec &> >(tee {log:q})
 
-        vendored/fetch-from-ncbi-entrez \
+        vendored/scripts/fetch-from-ncbi-entrez \
             --term {params.term:q} \
             --output {output.genbank:q}
         """
