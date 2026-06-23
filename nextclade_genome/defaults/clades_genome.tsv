@@ -1,0 +1,52 @@
+clade	gene	site	alt
+# 1A	nuc	8490	A
+# 1A	nuc	8745	T
+# 1A(VAX)	nuc	8327	T # including this excludes JF727653
+1A	nuc	8884	C
+# 1A	nuc	8934	T ## this is the one that hits _very_ basal, bad choice
+
+1B	nuc	8787	T
+1B	nuc	8781	A
+
+1C	nuc	8781	T
+1C	nuc	8865	C
+1C	nuc	8994	C
+1C	nuc	9207	T
+
+1D	nuc	8440	C
+1D	nuc	9303	T
+
+1E	nuc	8301	G
+1E	nuc	8667	T
+1E	nuc	9231	A
+1E	nuc	9240	C
+
+1F	nuc	8439	T
+1F	nuc	9306	T
+1F	nuc	9546	A
+1F	nuc	9651	C
+
+1G	nuc	8265	C
+1G	nuc	8508	T
+1G	nuc	8577	T
+
+1H	nuc	8388	A
+1H	nuc	8442	A
+1H	nuc	8637	T
+
+1I	nuc	9012	A
+
+1J	nuc	9255	G
+
+2A	nuc	8565	T
+2A	nuc	8754	G
+2A	nuc	9249	C
+
+2B	nuc	9213	C
+2B	nuc	9333	G
+2B	nuc	9348	A
+
+2C	nuc	8376	C
+2C	nuc	8553	A
+2C	nuc	9027	T
+2C	nuc	9623	C
