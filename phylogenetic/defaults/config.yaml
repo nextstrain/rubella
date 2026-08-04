@@ -5,27 +5,43 @@ strain_id_field: "accession"
 files:
   auspice_config: "defaults/auspice_config.json"
   description: "defaults/description.md"
-  exclude: "defaults/dropped_strains.txt"
   genome:
     auspice_title: "Real-time tracking of Rubella virus full genome evolution"
     clades: "defaults/clades_genome.tsv"
     genemap: "defaults/genemap_genome.gff"
-    include: "defaults/include_strains_genome.txt"
     reference: "defaults/reference_genome.fasta"
   E1:
     auspice_title: "Real-time tracking of Rubella virus E1 gene evolution"
     clades: "defaults/clades_E1.tsv"
     genemap: "defaults/genemap_E1.gff"
-    include: "defaults/include_strains_E1.txt"
     reference: "defaults/reference_E1.fasta"
-filter:
-  group_by: "country year"
+
+# Each 'subsample.<build>' entry should follow the structure described in
+# https://docs.nextstrain.org/projects/augur/en/stable/usage/cli/subsample.html#configuration
+# Use 'custom_subsample' instead of 'subsample' to ignore default config.
+# NOTE: The 'genome' build does not yet support proximal samples.
+subsample:
   genome:
-    min_length: 7000
-    sequences_per_group: 20
+    samples:
+      sample:
+        group_by:
+          - country
+          - year
+        min_length: 7000
+        sequences_per_group: 20
+        exclude: "defaults/dropped_strains.txt"
+        include: "defaults/include_strains_genome.txt"
   E1:
-    min_length: 700
-    sequences_per_group: 200
+    samples:
+      sample:
+        group_by:
+          - country
+          - year
+        min_length: 700
+        sequences_per_group: 200
+        exclude: "defaults/dropped_strains.txt"
+        include: "defaults/include_strains_E1.txt"
+
 refine:
   coalescent: "opt"
   date_inference: "marginal"

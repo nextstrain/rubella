@@ -8,7 +8,7 @@ rule ancestral:
     """Reconstructing ancestral sequences and mutations"""
     input:
         tree="results/{build}/tree.nwk",
-        alignment="results/{build}/aligned_and_filtered.fasta",
+        alignment="results/{build}/aligned_and_subsampled.fasta",
     output:
         node_data="results/{build}/nt_muts.json",
     params:
