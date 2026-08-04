@@ -1,5 +1,8 @@
 configfile: "defaults/config.yaml"
 
+include: "../shared/vendored/snakemake/config.smk"
+include: "rules/config.smk"
+
 rule all:
     input:
         auspice_json=expand("auspice/rubella_{build}.json", build=config["builds"]),

@@ -2,6 +2,7 @@
 This part of the workflow prepares sequences for constructing the
 phylogenetic tree.
 """
+from augur.subsample import get_referenced_files
 
 
 rule download:
@@ -44,46 +45,39 @@ rule decompress:
         """
 
 
-rule filter_genome:
+rule subsample_genome:
     input:
-        exclude=config["files"]["exclude"],
-        include=config["files"]["genome"]["include"],
-        metadata="data/metadata.tsv",
-        sequences="data/sequences.fasta",
+        metadata = "data/metadata.tsv",
+        sequences = "data/sequences.fasta",
+        config = "results/genome/subsample_config.yaml",
+        referenced_files = get_referenced_files(f"results/genome/subsample_config.yaml"),
     output:
-        sequences="results/genome/filtered.fasta",
+        sequences = "results/genome/subsampled.fasta",
     params:
-        group_by=config["filter"]["group_by"],
-        min_length=config["filter"]["genome"]["min_length"],
-        sequences_per_group=config["filter"]["genome"]["sequences_per_group"],
-        strain_id=config["strain_id_field"],
+        strain_id = config["strain_id_field"],
     log:
-        "logs/genome/filter_genome.txt",
+        "logs/genome/subsample.txt",
     benchmark:
-        "benchmarks/genome/filter_genome.txt"
+        "benchmarks/genome/subsample.txt",
     shell:
         r"""
         exec &> >(tee {log:q})
 
-        augur filter \
-            --sequences {input.sequences:q} \
-            --metadata {input.metadata:q} \
-            --metadata-id-columns {params.strain_id:q} \
-            --exclude {input.exclude:q} \
-            --include {input.include:q} \
-            --output-sequences {output.sequences:q} \
-            --group-by {params.group_by} \
-            --sequences-per-group {params.sequences_per_group:q} \
-            --min-length {params.min_length:q}
+        augur subsample \
+            --config {input.config} \
+            --sequences {input.sequences} \
+            --metadata {input.metadata} \
+            --metadata-id-columns {params.strain_id} \
+            --output-sequences {output.sequences}
         """
 
 
 rule align_genome:
     input:
-        sequences="results/genome/filtered.fasta",
+        sequences="results/genome/subsampled.fasta",
         reference=config["files"]["genome"]["reference"],
     output:
-        alignment="results/genome/aligned_and_filtered.fasta",
+        alignment="results/genome/aligned_and_subsampled.fasta",
     threads: workflow.cores * 0.5
     log:
         "logs/genome/align_genome.txt",
@@ -126,35 +120,28 @@ rule align_and_extract_E1:
         """
 
 
-rule filter_E1:
+rule subsample_E1:
     input:
-        sequences="results/E1/aligned.fasta",
-        metadata="data/metadata.tsv",
-        exclude=config["files"]["exclude"],
-        include=config["files"]["E1"]["include"],
+        sequences = "results/E1/aligned.fasta",
+        metadata = "data/metadata.tsv",
+        config = "results/E1/subsample_config.yaml",
+        referenced_files = get_referenced_files(f"results/E1/subsample_config.yaml"),
     output:
-        sequences="results/E1/aligned_and_filtered.fasta",
+        sequences = "results/E1/aligned_and_subsampled.fasta",
     params:
-        strain_id=config["strain_id_field"],
-        group_by=config["filter"]["group_by"],
-        sequences_per_group=config["filter"]["E1"]["sequences_per_group"],
-        min_length=config["filter"]["E1"]["min_length"],
+        strain_id = config["strain_id_field"],
     log:
-        "logs/E1/filter_E1.txt",
+        "logs/E1/subsample.txt",
     benchmark:
-        "benchmarks/E1/filter_E1.txt"
+        "benchmarks/E1/subsample.txt",
     shell:
         r"""
         exec &> >(tee {log:q})
 
-        augur filter \
-            --sequences {input.sequences:q} \
-            --metadata {input.metadata:q} \
-            --exclude {input.exclude:q} \
-            --include {input.include:q} \
-            --output-sequences {output.sequences:q} \
-            --metadata-id-columns {params.strain_id:q} \
-            --group-by {params.group_by} \
-            --sequences-per-group {params.sequences_per_group:q} \
-            --min-length {params.min_length:q}
+        augur subsample \
+            --config {input.config} \
+            --sequences {input.sequences} \
+            --metadata {input.metadata} \
+            --metadata-id-columns {params.strain_id} \
+            --output-sequences {output.sequences}
         """

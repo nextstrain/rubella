@@ -6,7 +6,7 @@ This part of the workflow constructs the phylogenetic tree.
 rule tree:
     """Building tree"""
     input:
-        alignment="results/{build}/aligned_and_filtered.fasta",
+        alignment="results/{build}/aligned_and_subsampled.fasta",
     output:
         tree="results/{build}/tree_raw.nwk",
     threads: workflow.cores * 0.5
@@ -34,7 +34,7 @@ rule refine:
     """
     input:
         tree="results/{build}/tree_raw.nwk",
-        alignment="results/{build}/aligned_and_filtered.fasta",
+        alignment="results/{build}/aligned_and_subsampled.fasta",
         metadata="data/metadata.tsv",
     output:
         tree="results/{build}/tree.nwk",
