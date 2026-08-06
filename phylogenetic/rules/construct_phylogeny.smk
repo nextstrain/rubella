@@ -44,6 +44,7 @@ rule refine:
         coalescent=config["refine"]["coalescent"],
         date_inference=config["refine"]["date_inference"],
         clock_filter_iqd=config["refine"]["clock_filter_iqd"],
+        divergence_units=config["refine"]["divergence_units"],
     log:
         "logs/{build}/refine.txt",
     benchmark:
@@ -66,5 +67,6 @@ rule refine:
             --date-confidence \
             --date-inference {params.date_inference:q} \
             --clock-filter-iqd {params.clock_filter_iqd:q} \
+            --divergence-units {params.divergence_units:q} \
             --stochastic-resolve
         """
