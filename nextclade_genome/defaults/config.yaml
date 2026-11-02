@@ -16,4 +16,3 @@ genome:
   genes: ['NSP', 'SP']
   export:
       metadata_columns: "strain division location"
-
