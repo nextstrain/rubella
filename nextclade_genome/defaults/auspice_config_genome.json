@@ -1,0 +1,70 @@
+{
+  "title": "Nextclade dataset for Rubella virus -- full genome",
+  "maintainers": [
+    {"name": "the Nextstrain team", "url": "https://nextstrain.org/team"}
+  ],
+  "build_url": "https://github.com/nextstrain/rubella",
+  "extensions": {
+    "nextclade": {
+      "ref_nodes":{
+        "default":"__root__",
+        "search":[
+          {
+            "name": "L78917",
+            "displayname": "Vaccine strain L78917 (RA 27/3)",
+            "description": "Show mutations relative to the vaccine strain RA 27/3",
+            "criteria":[
+              {
+                "node": [{"name": ["L78917"]}]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "colorings": [
+    {
+      "key": "gt",
+      "title": "Genotype",
+      "type": "categorical"
+    },
+    {
+      "key": "clade_membership",
+      "title": "Genotype (Nextstrain)",
+      "type": "categorical"
+    },
+    {
+      "key": "region",
+      "title": "Region",
+      "type": "categorical"
+    },
+    {
+      "key": "country",
+      "title": "Country",
+      "type": "categorical"
+    },
+    {
+      "key": "is_reference",
+      "title": "WHO Reference",
+      "type": "categorical"
+    }
+  ],
+  "geo_resolutions": [
+    "country",
+    "region"
+  ],
+  "display_defaults": {
+    "map_triplicate": true,
+    "color_by": "clade_membership"
+  },
+  "filters": [
+    "clade_membership",
+    "region",
+    "country",
+    "author"
+  ],
+  "metadata_columns": [
+    "author"
+  ]
+}
